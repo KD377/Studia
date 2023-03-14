@@ -29,11 +29,12 @@ def schematHornera(x, tab):
         wynik = wynik * x + tab[i+1]
     return wynik
 
+
 def f(x):
     return schematHornera(x, [3, 0, -7, 1])
 
 def g(x):
-    return math.sin(x*x)+3*x-2
+    return math.sin(x)
 
 def h(x):
     return (1/3)**x-5
@@ -42,11 +43,10 @@ def df(x):
     return 9*(x**2)-7
 
 def dg(x):
-    return 2*x*math.cos(x*x)+3
+    return math.cos(x)
 
 def dh(x):
     return -3**(-x)*math.log(3)
-
 
 def bisekcja(x1, x2, epsilon, iteracje, funkcja):
     f1 = funkcja(x1)
@@ -80,28 +80,37 @@ def bisekcja(x1, x2, epsilon, iteracje, funkcja):
         return srodek
 
 
-def metoda_stycznych(x1, x2, epsilon, iteracje, funkcja):
+def metodastycznych(x1, x2, epsilon, iteracje, funkcja, pochodna):
     f1 = funkcja(x1)
     f2 = funkcja(x2)
     if f1 * f2 > 0:
         print("Nie ma miejsca zerowego w tym przedziale")
         return None
     else:
-        x0 = (x2 + x1)/2
-        h = 
+        x3 = (x1+x2)/2
+        if iteracje == 0:
+            while abs(funkcja(x3)) > epsilon:
+                a = x3 - (funkcja(x3) / pochodna(x3))
+                x3 = a
+        elif epsilon == 0:
+            while iteracje > 0:
+                a = x3 - (funkcja(x3) / pochodna(x3))
+                x3 = a
+                iteracje -= 1
+        return x3
 
 if funkcja == "1":
     print(bisekcja(x1, x2, epsilon, iteracje, f))
-    print(metoda_stycznych(x1, x2, epsilon, iteracje, f))
+    print(metodastycznych(x1, x2, epsilon, iteracje, f, df))
 elif funkcja == "2":
     print(bisekcja(x1, x2, epsilon, iteracje, g))
-    print(metoda_stycznych(x1, x2, epsilon, iteracje, g))
+    print(metodastycznych(x1, x2, epsilon, iteracje, g, dg))
 elif funkcja == "3":
     print(bisekcja(x1, x2, epsilon, iteracje, h))
-    print(metoda_stycznych(x1, x2, epsilon, iteracje, h))
+    print(metodastycznych(x1, x2, epsilon, iteracje, h, dh))
 elif funkcja == "4":
     print(bisekcja(x1, x2, epsilon, iteracje, f))
-    print(metoda_stycznych(x1, x2, epsilon, iteracje, f))
+    print(metodastycznych(x1, x2, epsilon, iteracje, f, df))
 
 x = np.linspace(-10, 10, num=1000)
 fx = []
@@ -109,7 +118,7 @@ for i in range(len(x)):
     fx.append(schematHornera(x[i], [1, 1, 0, 1]))
 plt.plot(x, fx)
 ax = plt.gca()
-ax.set_ylim(-15, 15)
+ax.set_ylim(-15,15)
 plt.grid()
 plt.axvline()
 plt.axvline()
