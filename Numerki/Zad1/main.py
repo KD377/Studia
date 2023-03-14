@@ -102,9 +102,33 @@ def metodastycznych(x1, x2, epsilon, iteracje, funkcja, pochodna):
 if funkcja == "1":
     print(bisekcja(x1, x2, epsilon, iteracje, f))
     print(metodastycznych(x1, x2, epsilon, iteracje, f, df))
+    x = np.linspace(-10, 10, num=1000)
+    fx = []
+    for i in range(len(x)):
+        fx.append(schematHornera(x[i], [3, 0, -7, 1]))
+    plt.plot(x, fx)
+    ax = plt.gca()
+    ax.set_ylim(-15, 15)
+    plt.grid()
+    plt.axvline()
+    plt.axvline()
+    plt.show()
 elif funkcja == "2":
     print(bisekcja(x1, x2, epsilon, iteracje, g))
     print(metodastycznych(x1, x2, epsilon, iteracje, g, dg))
+    x = np.linspace(1, 4, num=1000)
+    y = np.sin(x)
+    plt.plot(x, y)
+    plt.scatter(metodastycznych(x1, x2, epsilon, iteracje, g, dg), 0, color='red')
+    ax = plt.gca()
+    ax.set_ylim(-2, 2)
+    plt.grid()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Wykres funkcji trygonometrycznej z miejscem zerowym obliczonym za pomoca metody stycznych')
+    plt.axvline()
+    plt.axhline()
+    plt.show()
 elif funkcja == "3":
     print(bisekcja(x1, x2, epsilon, iteracje, h))
     print(metodastycznych(x1, x2, epsilon, iteracje, h, dh))
@@ -112,14 +136,3 @@ elif funkcja == "4":
     print(bisekcja(x1, x2, epsilon, iteracje, f))
     print(metodastycznych(x1, x2, epsilon, iteracje, f, df))
 
-x = np.linspace(-10, 10, num=1000)
-fx = []
-for i in range(len(x)):
-    fx.append(schematHornera(x[i], [1, 1, 0, 1]))
-plt.plot(x, fx)
-ax = plt.gca()
-ax.set_ylim(-15,15)
-plt.grid()
-plt.axvline()
-plt.axvline()
-plt.show()
