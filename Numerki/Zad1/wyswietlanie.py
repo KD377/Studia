@@ -6,7 +6,7 @@ def wyswietl_wyniki(x1,x2,epsilon,iteracje,funkcja):
     if funkcja == "1":
         root1, iter1 = funkcje.bisekcja(x1, x2, epsilon, iteracje, funkcje.f)
         root2, iter2 = funkcje.metoda_stycznych(x1, x2, epsilon, iteracje, funkcje.f, funkcje.df)
-        print("Mijesce zerowe znalezione metoda bisekcji wynosi: ")
+        print("Miejsce zerowe znalezione metoda bisekcji wynosi: ")
         print(root1)
         if epsilon != 0:
             print("Metoda bisekcji potrzebowala " + str(iter1) + " iteracji\n")
@@ -69,5 +69,5 @@ def wyswietl_wyniki(x1,x2,epsilon,iteracje,funkcja):
                 print("By osiagnac zadana dokladnosc metoda stycznych potrzebowala mniej iteracji")
             else:
                 print("\nBy osiagnac zadana dokladnosc metoda bisekcji potrzebowala mniej iteracji")
-        funkcje.rysuj_wykres(x1, x2, funkcje.i, root1,'-3x^2 -3^x*ln(3)+cos(x) metoda bisekcji')
-        funkcje.rysuj_wykres(x1, x2, funkcje.i, root2,'Funkcja wielomianowa- metoda stycznych')
+        funkcje.rysuj_wykres(x1, x2, funkcje.i, root1,'-x^3 * sin(x)*-3^x (metoda bisekcji)')
+        funkcje.rysuj_wykres(x1, x2, funkcje.i, root2,'-x^3 * sin(x)*-3^x (metoda stycznych)')
