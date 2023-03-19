@@ -33,6 +33,19 @@ def dh(x):
 def di(x):
     return -3*x**2 - 3**x * math.log(3) + math.cos(x)
 
+def d2f(x):
+    return 18 * x
+
+def d2g(x):
+    return -(9/2) * math.sin(3*x)
+
+def d2h(x):
+    return 3**(-x)*(math.log(3))**2
+
+def d2i(x):
+    return -6*x - 3 ** x * math.log(3)**2 - math.sin(x)
+
+
 def bisekcja(x1, x2, epsilon, iteracje, funkcja):
     f1 = funkcja(x1)
     f2 = funkcja(x2)
@@ -66,11 +79,11 @@ def bisekcja(x1, x2, epsilon, iteracje, funkcja):
         return srodek,bi_iter_counter
 
 
-def metoda_stycznych(x1, x2, epsilon, iteracje, funkcja, pochodna):
+def metoda_stycznych(x1, x2, epsilon, iteracje, funkcja, pochodna, pochodna2):
     f1 = funkcja(x1)
     f2 = funkcja(x2)
     new_iter_counter = 0
-    if f1 * f2 > 0:
+    if f1 * f2 > 0 and pochodna(x1)*pochodna(x2) > 0 and pochodna2(x1)*pochodna2(x2)>0:
         print("Nie ma miejsca zerowego w tym przedziale")
         return None
     else:
