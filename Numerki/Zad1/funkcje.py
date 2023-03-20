@@ -83,7 +83,7 @@ def metoda_stycznych(x1, x2, epsilon, iteracje, funkcja, pochodna, pochodna2):
     f1 = funkcja(x1)
     f2 = funkcja(x2)
     new_iter_counter = 0
-    if f1 * f2 > 0 and pochodna(x1)*pochodna(x2) > 0 and pochodna2(x1)*pochodna2(x2)>0:
+    if f1 * f2 > 0 and pochodna(x1)*pochodna(x2) > 0 and pochodna2(x1)*pochodna2(x2) > 0:
         print("Nie ma miejsca zerowego w tym przedziale")
         return None
     else:
