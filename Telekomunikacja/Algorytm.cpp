@@ -13,16 +13,19 @@ Algorytm::Algorytm(std::string message) {
 }
 
 void Algorytm::changeBit(int index) {
-    if(information [index-1] == 0){
-        information[index-1] = 1;
+    if(index > 12){
+        return;
     }
-    else if (information [index-1] == 1){
-        information[index-1] =0;
+    if(information [index] == 0){
+        information[index] = 1;
+    }
+    else if (information [index] == 1){
+        information[index] =0;
     }
 }
 
 void Algorytm::setUpParityBits() {
-    int suma = 0;
+    int suma;
     int iter = 0;
     for(int i = 0; i < 8 ; i++)
     {
@@ -44,19 +47,21 @@ void Algorytm::setUpParityBits() {
 
 }
 
-std::string Algorytm::printMessage(int tab[]) {
+std::string Algorytm::printMessage() const {
     std::stringstream string;
     for (int i = 0; i < 13;i++) {
-        string<<tab[i];
+        string<<information[i];
     }
     return string.str();
 }
+
 
 void Algorytm::findSingleError() {
     int E [5] = {};
     bool valid = true;
     bool same = true;
-    int error;
+    bool multiple_error = false;
+    int error = 13, error1 =13 , error2 =13;
     for(int i = 0; i < 5; i++){
         E[i] =0;
         for (int j = 0 ; j < 13 ; j++){
@@ -66,6 +71,10 @@ void Algorytm::findSingleError() {
         if(E[i] == 1)
             valid = false;
     }
+    for(int i = 0; i < 5; i++){
+        std::cout<<E[i]<<" ";
+    }
+    std::cout<<std::endl;
     if(!valid){
         for(int i = 0; i < 13; i++){
             same = true;
@@ -79,11 +88,43 @@ void Algorytm::findSingleError() {
                 break;
             }
         }
-        std::cout<<"Otrzymana wiadomosc to:"<<printMessage(information)<<" zawiera błąd na bicie nr "<<error<<std::endl;
-        changeBit(error);
-        std::cout<<"Oto skorygowana wiadomość: "<<printMessage(information);
+        if(!same){
+            bool correct;
+            multiple_error = true;
+            for (int i = 0; i < 12; i++){
+                if(correct)
+                    break;
+                for(int k = i+1; k < 13; k++) {
+                    correct = true;
+                    std::cout<<i<<" "<<k<<std::endl;
+                    for (int j = 0; j < 5; j++) {
+                        if((H[j][i] + H[j][k])%2 != E[j]){
+                            correct = false;
+                        }
+                    }
+                    if(correct){
+                        error1 = i;
+                        error2 = k;
+                        break;
+                    }
+                }
+            }
+        }
+        if(multiple_error){
+            std::cout<<"Otrzymana wiadomosc to:"<<printMessage()<<" zawiera błąd na bicie nr "<<error1<<", "<<error2<<std::endl;
+            changeBit(error1);
+            changeBit(error2);
+            std::cout<<"Oto skorygowana wiadomość: "<<printMessage();
+        }
+        else{
+            std::cout<<"Otrzymana wiadomosc to:"<<printMessage()<<" zawiera błąd na bicie nr "<<error<<std::endl;
+            changeBit(error);
+            std::cout<<"Oto skorygowana wiadomość: "<<printMessage();
+        }
+
         }
         else{
             std::cout<<"Otrzymana wiadomosc jest poprawna!"<<std::endl;
         }
     }
+
