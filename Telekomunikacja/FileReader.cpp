@@ -15,6 +15,7 @@ void FileReader::readfile() {
      while (!infile.eof()){
          buffer.push_back(infile.get());
          i++;
+
      }
      infile.close();
  }
@@ -30,10 +31,16 @@ void FileReader::print() {
 }
 
 void FileReader::writeEncodedFile() const {
-    std::ofstream offile("../encoded.txt");
+    std::ofstream offile("../encoded.txt",std::ofstream::out);
     if(offile.is_open()){
-
-    } else{
+        for(int i = 0; i < buffer.size() - 1; i++){
+            algorytm->uploadMessage(buffer.at(i));
+            algorytm->setUpParityBits();
+            offile<<algorytm->getInformation();
+        }
+        offile.close();
+    }
+    else {
         std::cout<<"error opening file";
     }
 }

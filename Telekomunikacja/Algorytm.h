@@ -6,6 +6,7 @@
 #define TELEKOMUNIKACJA_ALGORYTM_H
 
 #include <string>
+#include <vector>
 
 
 class Algorytm {
@@ -20,14 +21,14 @@ private:
             {1, 1, 1, 1, 1, 1, 0, 1,/**/  0, 0, 0, 0, 0, 0, 1, 0},
             {1, 1, 1, 1, 1, 1, 1, 0,/**/  0, 0, 0, 0, 0, 0, 0, 1},
     };
-    int message [8] = {};
+    std::vector<int> message;
     int information [16] = {};
 public:
     explicit Algorytm();
 
-    std::string printMessage() const;
+    std::string getInformation() const;
 
-    void uploadMessage(char character);
+    void uploadMessage(unsigned char character);
 
     void resetMessage();
 

@@ -1,2 +1,1 @@
-jestesm sliczny
-i sympatyczny
+abc

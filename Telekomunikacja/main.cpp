@@ -12,9 +12,8 @@ int main() {
      */
     auto *alg = new Algorytm();
     auto *reader = new FileReader("../test.txt",alg);
-    alg->uploadMessage('a');
-    alg->printMessage();
-    alg->setUpParityBits();
+    reader->readfile();
+    reader->writeEncodedFile();
     delete alg;
     delete reader;
     return 0;

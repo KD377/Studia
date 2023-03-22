@@ -43,7 +43,7 @@ void Algorytm::setUpParityBits() {
 
 }
 
-std::string Algorytm::printMessage() const {
+std::string Algorytm::getInformation() const {
     std::stringstream string;
     for (int i = 0; i < 16;i++) {
         string<<information[i];
@@ -102,15 +102,15 @@ void Algorytm::findSingleError() {
             }
         }
         if(multiple_error){
-            std::cout<<"Otrzymana wiadomosc to:"<<printMessage()<<" zawiera błąd na bicie nr "<<error1<<", "<<error2<<std::endl;
+            std::cout << "Otrzymana wiadomosc to:" << getInformation() << " zawiera błąd na bicie nr " << error1 << ", " << error2 << std::endl;
             changeBit(error1);
             changeBit(error2);
-            std::cout<<"Oto skorygowana wiadomość: "<<printMessage();
+            std::cout << "Oto skorygowana wiadomość: " << getInformation();
         }
         else{
-            std::cout<<"Otrzymana wiadomosc to:"<<printMessage()<<" zawiera błąd na bicie nr "<<error<<std::endl;
+            std::cout << "Otrzymana wiadomosc to:" << getInformation() << " zawiera błąd na bicie nr " << error << std::endl;
             changeBit(error);
-            std::cout<<"Oto skorygowana wiadomość: "<<printMessage();
+            std::cout << "Oto skorygowana wiadomość: " << getInformation();
         }
 
         }
@@ -125,32 +125,18 @@ void Algorytm::resetMessage() {
     }
 }
 
-void Algorytm::uploadMessage(char character) {
-    int tab[8];
-    //resetMessage();
+void Algorytm::uploadMessage(unsigned char character) {
+    resetMessage();
     int i = 0;
     while (character > 0 && i < 8) {
-        tab[i] = character % 2;
+        message.push_back( character % 2);
         character /= 2;
         i++;
     }
     while (i < 8) {
-        tab[i] = 0;
+        message.push_back(0);
         i++;
     }
-
-    /*int k=7;
-    for (int i = 7; i >=0; i--)
-    {
-       if(tab[i] != 2)
-       {
-           message[k]=tab[i];
-           k--;
-       }
-    }*/
-
-    for(int i :tab){
-        std::cout<<tab[i];
-    }
+    std::reverse(message.begin(),message.end());
 }
 
