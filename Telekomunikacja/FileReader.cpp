@@ -13,7 +13,7 @@ void FileReader::readfile() {
  if(infile.is_open()){
      int i=0;
      while (!infile.eof()){
-             buffer.push_back(infile.get());
+         buffer.push_back(infile.get());
          i++;
      }
      infile.close();
@@ -26,5 +26,14 @@ void FileReader::readfile() {
 void FileReader::print() {
     for(unsigned char i : buffer){
         std::cout<<i;
+    }
+}
+
+void FileReader::writeEncodedFile() const {
+    std::ofstream offile("../encoded.txt");
+    if(offile.is_open()){
+
+    } else{
+        std::cout<<"error opening file";
     }
 }

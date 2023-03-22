@@ -24,6 +24,8 @@ public:
 
     void readfile();
 
+    void writeEncodedFile() const;
+
     void print();
 };
 

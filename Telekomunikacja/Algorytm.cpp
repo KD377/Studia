@@ -6,9 +6,7 @@
 #include "Algorytm.h"
 #include <sstream>
 
-Algorytm::Algorytm() {
-
-}
+Algorytm::Algorytm() = default;
 
 void Algorytm::changeBit(int index) {
     if(index > 15){
@@ -119,26 +117,40 @@ void Algorytm::findSingleError() {
         else{
             std::cout<<"Otrzymana wiadomosc jest poprawna!"<<std::endl;
         }
+}
+
+void Algorytm::resetMessage() {
+    for(int i : message){
+        message[i]=0;
     }
+}
 
 void Algorytm::uploadMessage(char character) {
-    int tab[8] = {2,2,2,2,2,2,2,2};
-    for (int i = 0; character > 0; i++)
-    {
+    int tab[8];
+    //resetMessage();
+    int i = 0;
+    while (character > 0 && i < 8) {
         tab[i] = character % 2;
         character /= 2;
+        i++;
     }
-    int k=0;
+    while (i < 8) {
+        tab[i] = 0;
+        i++;
+    }
+
+    /*int k=7;
     for (int i = 7; i >=0; i--)
     {
-       if(tab[i] == 2)
+       if(tab[i] != 2)
        {
-           message[k]=0;
-       }
-       else{
            message[k]=tab[i];
+           k--;
        }
-       k++;
+    }*/
+
+    for(int i :tab){
+        std::cout<<tab[i];
     }
 }
 

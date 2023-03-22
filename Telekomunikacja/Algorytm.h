@@ -29,6 +29,8 @@ public:
 
     void uploadMessage(char character);
 
+    void resetMessage();
+
     void changeBit(int index);
 
     void setUpParityBits();
