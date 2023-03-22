@@ -13,7 +13,7 @@ Algorytm::Algorytm(std::string message) {
 }
 
 void Algorytm::changeBit(int index) {
-    if(index > 12){
+    if(index > 15){
         return;
     }
     if(information [index] == 0){
@@ -32,7 +32,7 @@ void Algorytm::setUpParityBits() {
         information[i] = message[i];
     }
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 8; i++){
         suma = 0;
         for(int j = 0; j < 8; j++){
             suma += message[j]*H[i][j];
@@ -49,7 +49,7 @@ void Algorytm::setUpParityBits() {
 
 std::string Algorytm::printMessage() const {
     std::stringstream string;
-    for (int i = 0; i < 13;i++) {
+    for (int i = 0; i < 16;i++) {
         string<<information[i];
     }
     return string.str();
@@ -57,28 +57,24 @@ std::string Algorytm::printMessage() const {
 
 
 void Algorytm::findSingleError() {
-    int E [5] = {};
+    int E [8] = {};
     bool valid = true;
     bool same = true;
     bool multiple_error = false;
-    int error = 13, error1 =13 , error2 =13;
-    for(int i = 0; i < 5; i++){
+    int error = 16, error1 =16 , error2 =16;
+    for(int i = 0; i < 8; i++){
         E[i] =0;
-        for (int j = 0 ; j < 13 ; j++){
+        for (int j = 0 ; j < 16 ; j++){
             E[i] += information[j] * H[i][j];
         }
         E[i] %= 2;
         if(E[i] == 1)
             valid = false;
     }
-    for(int i = 0; i < 5; i++){
-        std::cout<<E[i]<<" ";
-    }
-    std::cout<<std::endl;
     if(!valid){
-        for(int i = 0; i < 13; i++){
+        for(int i = 0; i < 16; i++){
             same = true;
-            for (int j = 0 ; j < 5 ; j++){
+            for (int j = 0 ; j < 8 ; j++){
                 if(E[j] != H[j][i]){
                     same = false;
                 }
@@ -91,13 +87,12 @@ void Algorytm::findSingleError() {
         if(!same){
             bool correct;
             multiple_error = true;
-            for (int i = 0; i < 12; i++){
+            for (int i = 0; i < 15; i++){
                 if(correct)
                     break;
-                for(int k = i+1; k < 13; k++) {
+                for(int k = i+1; k < 16; k++) {
                     correct = true;
-                    std::cout<<i<<" "<<k<<std::endl;
-                    for (int j = 0; j < 5; j++) {
+                    for (int j = 0; j < 8; j++) {
                         if((H[j][i] + H[j][k])%2 != E[j]){
                             correct = false;
                         }

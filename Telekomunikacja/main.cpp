@@ -12,7 +12,7 @@ int main() {
      */
     auto *alg = new Algorytm("11111111");
     alg ->setUpParityBits();
-    alg->changeBit(3);
+    alg->changeBit(15);
     alg->changeBit(4);
     alg->findSingleError();
 
