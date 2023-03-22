@@ -23,9 +23,11 @@ private:
     int message [8] = {};
     int information [16] = {};
 public:
-    explicit Algorytm(std::string message);
+    explicit Algorytm();
 
     std::string printMessage() const;
+
+    void uploadMessage(char character);
 
     void changeBit(int index);
 

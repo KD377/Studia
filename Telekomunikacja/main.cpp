@@ -1,6 +1,6 @@
 
 #include "Algorytm.h"
-#include <iostream>
+#include "FileReader.h"
 using namespace std;
 
 int main() {
@@ -10,12 +10,13 @@ int main() {
     cout<<"1. Wykryj i skoryguj pojedynczy blad bitowy w wiadomosci 8-bitowej"<<endl<<"2. Wykryj i skoryguj podwojny blad bitowy w wiadomosci 8-bitowej"<<endl<<"3. Zad3"<<endl;
     cin>>choice;
      */
-    auto *alg = new Algorytm("11111111");
-    alg ->setUpParityBits();
-    alg->changeBit(15);
-    alg->changeBit(4);
-    alg->findSingleError();
-
+    auto *alg = new Algorytm();
+    auto *reader = new FileReader("../test.txt",alg);
+    reader->readfile();
+    reader->print();
+    alg->uploadMessage('a');
+    alg->setUpParityBits();
     delete alg;
+    delete reader;
     return 0;
 }
