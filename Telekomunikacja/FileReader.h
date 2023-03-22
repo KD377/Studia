@@ -27,6 +27,10 @@ public:
     void writeEncodedFile() const;
 
     void print();
+
+    void readEncodedFile();
+
+    void writeFinalFile(std::vector<char> result);
 };
 
 

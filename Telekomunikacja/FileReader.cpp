@@ -11,10 +11,9 @@ FileReader::FileReader(std::string filename, Algorytm *algorytm) : filename(std:
 void FileReader::readfile() {
  std::ifstream infile(filename);
  if(infile.is_open()){
-     int i=0;
      while (!infile.eof()){
          buffer.push_back(infile.get());
-         i++;
+
 
      }
      infile.close();
@@ -40,6 +39,46 @@ void FileReader::writeEncodedFile() const {
         }
         offile.close();
     }
+    else {
+        std::cout<<"error opening file";
+    }
+}
+
+void FileReader::readEncodedFile() {
+    std::ifstream infile("../encoded.txt");
+    if(infile.is_open()){
+        buffer.clear();
+        while (!infile.eof()) {
+            buffer.push_back(infile.get());
+
+        }
+        infile.close();
+    }
+    else{
+        std::cout<<"plik nie został odczytany"<<std::endl;
+    }
+    std::vector<int> vector;
+    std::vector<char> result;
+    for(int k = 0; k < buffer.size()-1; k+=16) {
+        for (int i = 0; i < 16; i++) {
+            vector.push_back(buffer[i+k]);
+        }
+        algorytm->vectorToTable(vector);
+        algorytm->findError();
+        result.push_back(algorytm->downloadMessage());
+        writeFinalFile(result);
+        vector.clear();
+    }
+}
+
+void FileReader::writeFinalFile(std::vector<char> result) {
+    std::ofstream offile("../final.txt",std::ofstream::out);
+    if(offile.is_open()){
+        for(int i = 0; i < result.size(); i++) {
+            offile << result[i];
+        }
+            offile.close();
+        }
     else {
         std::cout<<"error opening file";
     }

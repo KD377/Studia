@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Algorytm.h"
 #include <sstream>
+#include <cmath>
 
 Algorytm::Algorytm() = default;
 
@@ -52,7 +53,7 @@ std::string Algorytm::getInformation() const {
 }
 
 
-void Algorytm::findSingleError() {
+void Algorytm::findError() {
     int E [8] = {};
     bool valid = true;
     bool same = true;
@@ -102,22 +103,16 @@ void Algorytm::findSingleError() {
             }
         }
         if(multiple_error){
-            std::cout << "Otrzymana wiadomosc to:" << getInformation() << " zawiera błąd na bicie nr " << error1 << ", " << error2 << std::endl;
             changeBit(error1);
             changeBit(error2);
-            std::cout << "Oto skorygowana wiadomość: " << getInformation();
         }
         else{
-            std::cout << "Otrzymana wiadomosc to:" << getInformation() << " zawiera błąd na bicie nr " << error << std::endl;
             changeBit(error);
-            std::cout << "Oto skorygowana wiadomość: " << getInformation();
         }
 
-        }
-        else{
-            std::cout<<"Otrzymana wiadomosc jest poprawna!"<<std::endl;
-        }
+    }
 }
+
 
 void Algorytm::resetMessage() {
     for(int i : message){
@@ -139,4 +134,22 @@ void Algorytm::uploadMessage(unsigned char character) {
     }
     std::reverse(message.begin(),message.end());
 }
+
+char Algorytm::downloadMessage() {
+    char character = 0;
+    for(int i = 0; i < 8; i++){
+        character += information[i] * std::pow(2, 7 - i);
+    }
+    return character;
+}
+
+void Algorytm::vectorToTable(std::vector<int> vector) {
+        for(int i = 0; i < 16; i++){
+            information[i] = vector[i]-48;
+
+        }
+
+}
+
+
 

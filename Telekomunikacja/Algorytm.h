@@ -36,7 +36,11 @@ public:
 
     void setUpParityBits();
 
-    void findSingleError();
+    void findError();
+
+    char downloadMessage();
+
+    void vectorToTable(std::vector<int> vector);
 
 };
 

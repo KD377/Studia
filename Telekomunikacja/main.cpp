@@ -14,6 +14,7 @@ int main() {
     auto *reader = new FileReader("../test.txt",alg);
     reader->readfile();
     reader->writeEncodedFile();
+    reader->readEncodedFile();
     delete alg;
     delete reader;
     return 0;
