@@ -67,6 +67,7 @@ void Algorytm::findError() {
         E[i] %= 2;
         if(E[i] == 1)
             valid = false;
+
     }
     if(!valid){
         for(int i = 0; i < 16; i++){

@@ -69,6 +69,7 @@ void FileReader::readEncodedFile() {
         writeFinalFile(result);
         vector.clear();
     }
+
 }
 
 void FileReader::writeFinalFile(std::vector<char> result) {
