@@ -1,44 +1,51 @@
-macierz = [[3, 3, 1], [2, 5, 7], [-4, -10, -14]]
-
-wektor = [1, 20, -20]
+A = [[3, 3, 1], [2, 5, 7], [-4, -10, -14]]
+b = [1, 20, -20]
 
 
 def gauss_jordan(A, b):
-    n = len(b)
-
-    # eliminacja Gaussa
-    for i in range(n):
-        # pivotowanie - szukanie największego elementu w kolumnie i-tej
-        max_row = i
-        for j in range(i + 1, n):
-            if abs(A[j][i]) > abs(A[max_row][i]):
-                max_row = j
-        A[i], A[max_row] = A[max_row], A[i]
-        b[i], b[max_row] = b[max_row], b[i]
-
-        # sprawdzenie, czy macierz jest diagonalna
-        if A[i][i] == 0:
-            for k in range(i + 1, n):
-                if A[k][i] != 0:
-                    # układ jest sprzeczny
-                    return "sprzeczny"
-            # układ jest nieoznaczony
-            return "nieoznaczony"
-
-        for j in range(n):
-            if j != i:
-                c = A[j][i] / A[i][i]
-                for k in range(i, n):
-                    A[j][k] -= c * A[i][k]
-                b[j] -= c * b[i]
-
-    # wyliczenie niewiadomych
-    for i in range(n):
-        if A[i][i] == 0:
-            # to nigdy się nie powinno zdarzyć, ale w razie czego
-            return None
-        b[i] /= A[i][i]
-
+    x = len(b)
+    for i in range(x):
+        #sprawdzenie warunkow
+        nieoznaczony = True
+        sprzeczny = True
+        tablica = [0, 0, 0, 0]
+        for j in range(x):
+            for k in range(x + 1):
+                if k < len(b):
+                    tablica[k] = A[k][j]
+                else:
+                    tablica[k] = b[j]
+            for element1 in tablica:
+                if element1 != 0:
+                    nieoznaczony = False
+                    break
+            for element2 in range(len(tablica) - 1):
+                if tablica[element2] != 0:
+                    sprzeczny = False
+                    break
+            if nieoznaczony:
+                return "nieoznaczony"
+            elif sprzeczny:
+                return "sprzeczny"
+        max = abs(A[i][i])
+        index = i
+        for l in range(x-i):
+            if abs(A[i+l][i]) > max:
+                index = i + l
+        if index != i:
+            A[i], A[index] = A[index], A[i]
+            b[i], b[index] = b[index], b[i]
+        aii = A[i][i]
+        b[i] /= aii
+        for m in range(x-i):
+            A[i][i+m] /= aii
+        for n in range(x):
+            if n != i:
+                ani = A[n][i]
+                b[n] -= b[i] * ani
+                for o in range(x):
+                    A[n][o] -= A[i][o] * ani
+        b = [round(element3, 4) for element3 in b]
     return b
 
-print(gauss_jordan(macierz, wektor))
+print(gauss_jordan(A, b))
