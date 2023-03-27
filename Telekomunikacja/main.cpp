@@ -4,23 +4,20 @@
 using namespace std;
 
 int main() {
-    /*
-    int choice;
-    cout<<"Wybierz opcje: ";
-    cout<<"1. Wykryj i skoryguj pojedynczy blad bitowy w wiadomosci 8-bitowej"<<endl<<"2. Wykryj i skoryguj podwojny blad bitowy w wiadomosci 8-bitowej"<<endl<<"3. Zad3"<<endl;
-    cin>>choice;
-     */
     int x;
     auto *alg = new Algorytm();
     auto *reader = new FileReader("../test.txt",alg);
-    std::cout<<"1-Zakodowanie\n2.Odkodowanie";
-    std::cin>>x;
-    if( x == 1){
-        reader->readfile();
-        reader->writeEncodedFile();
-    }
-    else if(x == 2){
-        reader->readEncodedFile();
+    while(x != 3) {
+        std::cout << "1-Zakodowanie\n2.Odkodowanie\n3.Zakoncz program\nWybor:";
+        std::cin >> x;
+        if (x == 1) {
+            reader->readfile();
+            reader->writeEncodedFile();
+            cout<<"Zakodowano!\n\n";
+        } else if (x == 2) {
+            reader->readEncodedFile();
+            cout<<"Odkodowano!\n\n";
+        }
     }
     delete alg;
     delete reader;
