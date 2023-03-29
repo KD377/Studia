@@ -32,3 +32,33 @@ def jordan(macierz, wektor):
                     macierz[i][j] -= macierz[k][j] * aik
     wektor = [round(x, 8) for x in wektor]
     return wektor
+
+
+def get_matrix(text_string):
+    characters = list(text_string)
+    size = 0
+    for j in range(len(characters)):
+        if characters[j] == "|":
+            size += 1
+    matrix = [[0.0 for _ in range(size)] for _ in range(size)]
+    vector = []
+    buffer = []
+    row = 0
+    column = 0
+    for i in range(len(characters)):
+        if characters[i] == " ":
+            matrix[row][column] = float(''.join(buffer))
+            column += 1
+            buffer = []
+        elif characters[i] == "|":
+            matrix[row][column] = float(''.join(buffer))
+            buffer = []
+        elif characters[i] == "\n":
+            vector.append(float(''.join(buffer)))
+            row += 1
+            column = 0
+            buffer = []
+        else:
+            buffer.append(characters[i])
+
+    return matrix, vector
