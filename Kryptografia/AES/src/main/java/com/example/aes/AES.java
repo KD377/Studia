@@ -66,11 +66,16 @@ public class AES {
     private void generateKey(byte[] key){
         byte [] tmp = new byte[4];
         byte [] block = new byte[4];
-        for (int i = 0, j = 0; i < columns; i++, j++){
-            this.key[i][0] = key[j];
-            this.key[i][1] = key[j++];
-            this.key[i][2] = key[j++];
-            this.key[i][3] = key[j++];
+        int x = 0;
+        int y =0;
+        while (x < columns)
+        {
+            this.key[0][x] = key[y];
+            this.key[1][x] = key[y++];
+            this.key[2][x] = key[y++];
+            this.key[3][x] = key[y++];
+            x++;
+            y++;
         }
 
         for (int round = 1; round <= 10; round++){
@@ -104,13 +109,13 @@ public class AES {
         return number;
     }
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         AES aes = new AES(4,10);
-        byte[] klucz = {0x54, 0x68, 0x61, 0x74, 0x73, 0x20, 0x4B, 0x75, 0x6E, 0x67, 0x20, 0x46, 0x75};
-        generateKey(klucz);
+        byte[] klucz = {0x54, 0x68, 0x61, 0x74, 0x73, 0x20, 0x6D, 0x79, 0x20, 0x4B, 0x75, 0x6E, 0x67, 0x20, 0x46, 0x75};
+        aes.generateKey(klucz);
         for(int i = 0; i < 44; i++){
             for(int j = 0; j < 4; j++){
-                System.out.print(key[i][j]+ " ");
+                System.out.print(aes.key[i][j]+ " ");
             }
         }
     }
