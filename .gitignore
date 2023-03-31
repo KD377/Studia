@@ -4,4 +4,5 @@
 **/.idea
 **/cmake-build-debug
 **/final.txt
+**/target
 
