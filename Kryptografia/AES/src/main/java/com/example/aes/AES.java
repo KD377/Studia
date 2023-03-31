@@ -104,9 +104,15 @@ public class AES {
         return number;
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         AES aes = new AES(4,10);
-
+        byte[] klucz = {0x54, 0x68, 0x61, 0x74, 0x73, 0x20, 0x4B, 0x75, 0x6E, 0x67, 0x20, 0x46, 0x75};
+        generateKey(klucz);
+        for(int i = 0; i < 44; i++){
+            for(int j = 0; j < 4; j++){
+                System.out.print(key[i][j]+ " ");
+            }
+        }
     }
 
     public byte[] xorWords(byte[] word1, byte[] word2) {
