@@ -1,5 +1,7 @@
 package com.example.aes;
 
+import java.nio.charset.StandardCharsets;
+
 public class AES {
 
     private byte[][] key;
@@ -109,15 +111,24 @@ public class AES {
         return number;
     }
 
+    public byte[] stringToByteArray(String str) {
+        return str.getBytes(StandardCharsets.UTF_8);
+    }
+
+    public  void printByteArrayInHex(byte[] byteArray) {
+        for (int i = 0; i < byteArray.length; i++) {
+            String hexString = Integer.toHexString(byteArray[i] & 0xFF);
+            System.out.print(hexString.toUpperCase() + " ");
+        }
+    }
+
+
     public static void main(String[] args) {
         AES aes = new AES(4,10);
-        byte[] klucz = {0x54, 0x68, 0x61, 0x74, 0x73, 0x20, 0x6D, 0x79, 0x20, 0x4B, 0x75, 0x6E, 0x67, 0x20, 0x46, 0x75};
-        aes.generateKey(klucz);
-        for(int i = 0; i < 44; i++){
-            for(int j = 0; j < 4; j++){
-                System.out.print(aes.key[i][j]+ " ");
-            }
-        }
+        byte[] klucz = {(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
+        byte[] message = aes.stringToByteArray("a");
+        byte[] output = aes.encode(message,klucz);
+        aes.printByteArrayInHex(output);
 
     }
 
@@ -230,6 +241,7 @@ public class AES {
         state = subBytes(state);
         state = shiftRows(state);
         state = addRoundKey(state, key, rounds);
+        j=0;
         for(int i = 0; i < 4; i++){
             text[j] = state[i][0];
             text[j++] = state[i][1];
