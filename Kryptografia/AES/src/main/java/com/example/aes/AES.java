@@ -149,5 +149,41 @@ public class AES {
         return array;
     }
 
+    public byte[][] addRoundKey(byte[][] state, byte[][] roundkey, int round){
+        byte[][] tmp = new byte[4][4];
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                tmp[i][j] = (byte) (state[i][j] ^ roundkey[NUMBER_BYTES * round+i][j]);
+            }
+        }
+        return tmp;
+    }
+
+    public byte[][] shiftRows(byte[][] state){
+        
+    }
+
+    public byte[] encrypt(byte[] text){
+        byte[][] state = new byte[4][4];
+        int j = 0;
+        for(int i = 0; i < 0; i++){
+            state[i][0] = text[j];
+            state[i][1] = text[j++];
+            state[i][2] = text[j++];
+            state[i][3] = text[j++];
+            j++;
+        }
+        state = addRoundKey(state, key, 0);
+        for(int i = 0; i < rounds; i++){
+            for(int x = 0; x < 4; x++){
+                for(int y = 0; y < 4; y++){
+                    state[x][y] = subByte(state[x][y]);
+                }
+            }
+
+        }
+        return text;
+    }
+
 
 }
