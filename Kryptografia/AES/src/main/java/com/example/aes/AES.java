@@ -111,6 +111,11 @@ public class AES {
         return number;
     }
 
+    private byte invSubByte(byte number){
+        number = (byte) inv_sbox[number & 0xFF];
+        return number;
+    }
+
     public byte[] stringToByteArray(String str) {
         return str.getBytes(StandardCharsets.UTF_8);
     }
@@ -126,9 +131,10 @@ public class AES {
     public static void main(String[] args) {
         AES aes = new AES(4,10);
         byte[] klucz = {(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
-        byte[] message = aes.stringToByteArray("a");
+        byte[] message = aes.stringToByteArray("abc");
         byte[] output = aes.encode(message,klucz);
-        aes.printByteArrayInHex(output);
+        //aes.printByteArrayInHex(output);
+        System.out.print(klucz[1]);
 
     }
 
@@ -145,6 +151,23 @@ public class AES {
     }
 
     public byte[] shiftArrayLeft(byte[] array, int step) {
+        for (int i = 0; i < step; i++) {
+            int j;
+            byte first;
+            //Stores the last element of array
+            first = array[0];
+
+            for (j = 1; j < array.length; j++) {
+                //Shift element of array by one
+                array[j - 1] = array[j];
+            }
+            //Last element of array will be added to the start of array.
+            array[array.length - 1] = first;
+        }
+        return array;
+    }
+
+    public byte[] shiftArrayRight(byte[] array, int step) {
         for (int i = 0; i < step; i++) {
             int j;
             byte first;
