@@ -33,7 +33,7 @@ public class AES {
             0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41,
             0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16 };
 
-    private final int[] inv_sbox = { 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5,
+    private int[] inv_sbox = { 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5,
             0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB, 0x7C, 0xE3,
             0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4,
             0xDE, 0xE9, 0xCB, 0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D,
@@ -59,7 +59,12 @@ public class AES {
             0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D };
 
     private final int [] Rcon = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36};
-    public AES(int columns,int rounds) {
+
+    public byte[][] getKey() {
+        return key;
+    }
+
+    public AES(int columns, int rounds) {
        key =  new byte[NUMBER_BYTES *(rounds + 1)][4];
        this.columns = columns;
        this.rounds = rounds;
@@ -73,11 +78,11 @@ public class AES {
         while (x < columns)
         {
             this.key[0][x] = key[y];
-            this.key[1][x] = key[y++];
-            this.key[2][x] = key[y++];
-            this.key[3][x] = key[y++];
+            this.key[1][x] = key[y+1];
+            this.key[2][x] = key[y+2];
+            this.key[3][x] = key[y+3];
             x++;
-            y++;
+            y+=4;
         }
 
         for (int round = 1; round <= 10; round++){
@@ -107,12 +112,12 @@ public class AES {
     }
 
     private byte subByte(byte number){
-        number = (byte) sbox[number & 0xFF];
+        number = (byte) (sbox[(number & 0xff)]);
         return number;
     }
 
     private byte invSubByte(byte number){
-        number = (byte) inv_sbox[number & 0xFF];
+        number = (byte) (inv_sbox[(number & 0xff)]);
         return number;
     }
 
@@ -127,14 +132,32 @@ public class AES {
         }
     }
 
+    public void printByteArrayInHex2(byte[][] byteArray2D) {
+        for (int i = 0; i < byteArray2D.length; i++) {
+            for (int j = 0; j < byteArray2D[i].length; j++) {
+                String hexString = Integer.toHexString(byteArray2D[i][j] & 0xFF);
+                System.out.print(hexString.toUpperCase() + " ");
+            }
+            System.out.println(); // Move to next line after each row
+        }
+    }
+
+
 
     public static void main(String[] args) {
         AES aes = new AES(4,10);
         byte[] klucz = {(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
-        byte[] message = aes.stringToByteArray("abc");
-        byte[] output = aes.encode(message,klucz);
-        //aes.printByteArrayInHex(output);
-        System.out.print(klucz[1]);
+        byte[] message = aes.stringToByteArray("a");
+        //byte[][] state = {{(byte)0x63,(byte)0xEB,(byte)0x9F,(byte)0xA0},{(byte)0x2F,(byte)0x93,(byte)0x92,(byte)0xC0},{(byte)0xAF,(byte)0xC7,(byte)0xAB,(byte)0x30},{(byte)0xA2,(byte)0x20,(byte)0xCB,(byte)0x2B}};
+        //aes.printByteArrayInHex(message);
+        System.out.println();
+        byte[] encoded = aes.encode(message,klucz);
+        byte [] decrypted = aes.decode(encoded,klucz);
+        System.out.println();
+        aes.printByteArrayInHex(decrypted);
+
+
+        //aes.printByteArrayInHex(decrypted);
 
     }
 
@@ -174,9 +197,9 @@ public class AES {
             //Stores the last element of array
             last = array[3];
 
-            for (j = 0; j < array.length-1; j++) {
+            for (j = array.length-2 ; j >= 0; j--) {
                 //Shift element of array by one
-                array[j + 1] = array[j];
+                array[j+1] = array[j];
             }
             //Last element of array will be added to the start of array.
             array[0] = last;
@@ -188,7 +211,7 @@ public class AES {
         byte[][] tmp = new byte[4][4];
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                tmp[i][j] = (byte) (state[i][j] ^ roundKey[NUMBER_BYTES * round+i][j]);
+                tmp[j][i] = (byte) (state[j][i] ^ roundKey[NUMBER_BYTES * round+i][j]);
             }
         }
         return tmp;
@@ -198,7 +221,7 @@ public class AES {
         byte[][] tmp = new byte[4][4];
         for(int x = 0; x < 4; x++){
             for(int y = 0; y < 4; y++){
-                tmp[x][y] = invSubByte(state[x][y]);
+                tmp[x][y] = subByte(state[x][y]);
             }
         }
         return tmp;
@@ -207,7 +230,7 @@ public class AES {
         byte[][] tmp = new byte[4][4];
         for(int x = 0; x < 4; x++){
             for(int y = 0; y < 4; y++){
-                tmp[x][y] = subByte(state[x][y]);
+                tmp[x][y] = invSubByte(state[x][y]);
             }
         }
         return tmp;
@@ -233,19 +256,20 @@ public class AES {
         return tmp;
     }
 
-    public byte multiply(byte a, byte b) {
-        byte value = 0;
-        byte temp = 0;
-        while (a != 0) {
-            if ((a & 1) != 0)
-                value = (byte) (value ^ b);
-            temp = (byte) (b & 0x80);
-            b = (byte) (b << 1);
-            if (temp != 0)
-                b = (byte) (b ^ 0x1b);
-            a = (byte) ((a & 0xff) >> 1);
+    public  byte multiply(byte a, byte b)
+    {
+        byte aa = a, bb = b, r = 0, t;
+        while (aa != 0)
+        {
+            if ((aa & 1) != 0)
+                r = (byte) (r ^ bb);
+            t = (byte) (bb & 0x20);
+            bb = (byte) (bb << 1);
+            if (t != 0)
+                bb = (byte) (bb ^ 0x1b);
+            aa = (byte) ((aa & 0xff) >> 1);
         }
-        return value;
+        return r;
     }
 
     public byte[][] mixColumns(byte[][] state){
@@ -256,11 +280,13 @@ public class AES {
             temp[1] = state[0][i]  ^ multiply(b02, state[1][i]) ^ multiply(b03, state[2][i]) ^ state[3][i];
             temp[2] = state[0][i]  ^ state[1][i]  ^ multiply(b02, state[2][i]) ^ multiply(b03, state[3][i]);
             temp[3] = multiply(b03, state[0][i]) ^ state[1][i]  ^ state[2][i]  ^ multiply(b02, state[3][i]);
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++) {
                 state[j][i] = (byte) (temp[j]);
+            }
         }
         return state;
     }
+    
     public byte[][] invMixColumns(byte[][] state){
         int[] temp = new int[4];
         byte b02 = (byte)0x0e, b03 = (byte)0x0b, b04 = (byte)0x0d, b05 = (byte)0x09;
@@ -277,65 +303,48 @@ public class AES {
     }
 
 
+
     public byte[] encrypt(byte[] text){
         byte[][] state = new byte[4][4];
         int j = 0;
-        for(int i = 0; i < 4; i++){
-            state[i][0] = text[j];
-            state[i][1] = text[j++];
-            state[i][2] = text[j++];
-            state[i][3] = text[j++];
-            j++;
-        }
+        for (int i = 0; i < text.length; i++)
+            state[i / 4][i % 4] = text[i];
         state = addRoundKey(state, key, 0);
-        for(int i = 0; i < rounds; i++){
+        for(int i = 1; i < rounds; i++){
             state = subBytes(state);
             state = shiftRows(state);
             state = mixColumns(state);
             state = addRoundKey(state, key, i);
+
         }
         state = subBytes(state);
         state = shiftRows(state);
-        state = addRoundKey(state, key, rounds);
+        state = addRoundKey(state, key, 10);
         j=0;
-        for(int i = 0; i < 4; i++){
-            text[j] = state[i][0];
-            text[j++] = state[i][1];
-            text[j++] = state[i][2];
-            text[j++] = state[i][3];
-            j++;
-        }
+        for (int i = 0; i < text.length; i++)
+            text[i] = state[i / 4][i%4];
         return text;
     }
 
     public byte[] decrypt(byte[] text){
         byte[][] state = new byte[4][4];
         int j = 0;
-        for(int i = 0; i < 4; i++){
-            state[i][0] = text[j];
-            state[i][1] = text[j++];
-            state[i][2] = text[j++];
-            state[i][3] = text[j++];
-            j++;
-        }
-        state = addRoundKey(state, key, rounds);
-        for(int i = rounds-1; i > 0; i--){
+        for (int i = 0; i < text.length; i++)
+            state[i/4][i % 4] = text[i];
+        state = addRoundKey(state, key, 10);
+        for(int i = 9; i > 0; i--){
             state = invSubBytes(state);
             state = invShiftRows(state);
-            state = invMixColumns(state);
             state = addRoundKey(state, key, i);
+            state = invMixColumns(state);
+
         }
         state = invSubBytes(state);
         state = invShiftRows(state);
         state = addRoundKey(state, key, 0);
         j = 0;
-        for(int i = 0; i < 4; i++){
-            text[j] = state[i][0];
-            text[j++] = state[i][1];
-            text[j++] = state[i][2];
-            text[j++] = state[i][3];
-            j++;
-        }
+        for (int i = 0; i < text.length; i++)
+            text[i] = state[i / 4][i%4];
         return text;
     }
 
@@ -382,17 +391,19 @@ public class AES {
         generateKey(mainKey);
         for(int i = 0; i < encryptedText.length;){
             for (int j = 0; j < 16; j++){
-                block[j] = encryptedText[i++];
+                block[j] = encryptedText[i];
+                i+=1;
             }
+
             block = decrypt(block);
             System.arraycopy(block, 0, tmpResult,i - 16, block.length);
         }
         int x = 0;
-        for (int i = 1; i < 17; i += 2)
+        for (int i = 1; i < 17; i += 1)
         {
-            if (tmpResult[tmpResult.length - i] == 0 && tmpResult[tmpResult.length - i - 1] == 0)
+            if (tmpResult[tmpResult.length - i] == 0 )
             {
-                x += 2;
+                x += 1;
             }
             else
             {
