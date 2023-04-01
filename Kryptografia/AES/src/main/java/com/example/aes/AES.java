@@ -118,6 +118,7 @@ public class AES {
                 System.out.print(aes.key[i][j]+ " ");
             }
         }
+
     }
 
     public byte[] xorWords(byte[] word1, byte[] word2) {
@@ -149,24 +150,70 @@ public class AES {
         return array;
     }
 
-    public byte[][] addRoundKey(byte[][] state, byte[][] roundkey, int round){
+    public byte[][] addRoundKey(byte[][] state, byte[][] roundKey, int round){
         byte[][] tmp = new byte[4][4];
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                tmp[i][j] = (byte) (state[i][j] ^ roundkey[NUMBER_BYTES * round+i][j]);
+                tmp[i][j] = (byte) (state[i][j] ^ roundKey[NUMBER_BYTES * round+i][j]);
+            }
+        }
+        return tmp;
+    }
+
+    public byte[][] subBytes(byte[][] state){
+        byte[][] tmp = new byte[4][4];
+        for(int x = 0; x < 4; x++){
+            for(int y = 0; y < 4; y++){
+                tmp[x][y] = subByte(state[x][y]);
             }
         }
         return tmp;
     }
 
     public byte[][] shiftRows(byte[][] state){
-        
+        byte[][] tmp = new byte[4][4];
+        tmp[0] = state[0];
+        for(int i = 1; i < 4; i++){
+           tmp[i] = shiftArrayLeft(state[i], i);
+        }
+
+        return tmp;
     }
+
+    public byte multiply(byte a, byte b) {
+        byte value = 0;
+        byte temp = 0;
+        while (a != 0) {
+            if ((a & 1) != 0)
+                value = (byte) (value ^ b);
+            temp = (byte) (b & 0x80);
+            b = (byte) (b << 1);
+            if (temp != 0)
+                b = (byte) (b ^ 0x1b);
+            a = (byte) ((a & 0xff) >> 1);
+        }
+        return value;
+    }
+
+    public byte[][] mixColumns(byte[][] state){
+        int[] temp = new int[4];
+        byte b02 = (byte)0x02, b03 = (byte)0x03;
+        for (int i = 0; i < 4; i++) {
+            temp[0] = multiply(b02, state[0][i]) ^ multiply(b03, state[1][i]) ^ state[2][i]  ^ state[3][i];
+            temp[1] = state[0][i]  ^ multiply(b02, state[1][i]) ^ multiply(b03, state[2][i]) ^ state[3][i];
+            temp[2] = state[0][i]  ^ state[1][i]  ^ multiply(b02, state[2][i]) ^ multiply(b03, state[3][i]);
+            temp[3] = multiply(b03, state[0][i]) ^ state[1][i]  ^ state[2][i]  ^ multiply(b02, state[3][i]);
+            for (int j = 0; j < 4; j++)
+                state[j][i] = (byte) (temp[j]);
+        }
+        return state;
+    }
+
 
     public byte[] encrypt(byte[] text){
         byte[][] state = new byte[4][4];
         int j = 0;
-        for(int i = 0; i < 0; i++){
+        for(int i = 0; i < 4; i++){
             state[i][0] = text[j];
             state[i][1] = text[j++];
             state[i][2] = text[j++];
@@ -175,14 +222,59 @@ public class AES {
         }
         state = addRoundKey(state, key, 0);
         for(int i = 0; i < rounds; i++){
-            for(int x = 0; x < 4; x++){
-                for(int y = 0; y < 4; y++){
-                    state[x][y] = subByte(state[x][y]);
-                }
-            }
-
+            state = subBytes(state);
+            state = shiftRows(state);
+            state = mixColumns(state);
+            state = addRoundKey(state, key, i);
+        }
+        state = subBytes(state);
+        state = shiftRows(state);
+        state = addRoundKey(state, key, rounds);
+        for(int i = 0; i < 4; i++){
+            text[j] = state[i][0];
+            text[j++] = state[i][1];
+            text[j++] = state[i][2];
+            text[j++] = state[i][3];
+            j++;
         }
         return text;
+    }
+
+    public byte[] encode(byte[] text, byte[] mainKey){
+        int length;
+        int x = text.length/16;
+        if(x == 0){
+            length = 16;
+        }
+        else if ((text.length % 16) != 0){
+            length = (x + 1) * 16;
+        }
+        else{
+            length = x * 16;
+        }
+
+        byte[] result = new byte[length];
+        byte[] tmp = new byte[length];
+        byte[] block = new byte[16];
+        generateKey(mainKey);
+        for(int i = 0; i < length; i++){
+            if(i < text.length){
+                tmp[i] = text[i];
+            }
+            else{
+                tmp[i] = 0;
+            }
+        }
+        for (int k = 0; k < tmp.length;)
+        {
+            for (int j=0;j<16;j++){
+                block[j]=tmp[k++];
+            }
+            block = encrypt(block);
+            System.arraycopy(block, 0, result,k-16, block.length);
+
+        }
+        return result;
     }
 
 
