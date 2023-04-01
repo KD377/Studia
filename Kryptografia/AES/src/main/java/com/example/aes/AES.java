@@ -170,16 +170,16 @@ public class AES {
     public byte[] shiftArrayRight(byte[] array, int step) {
         for (int i = 0; i < step; i++) {
             int j;
-            byte first;
+            byte last;
             //Stores the last element of array
-            first = array[0];
+            last = array[3];
 
-            for (j = 1; j < array.length; j++) {
+            for (j = 0; j < array.length-1; j++) {
                 //Shift element of array by one
-                array[j - 1] = array[j];
+                array[j + 1] = array[j];
             }
             //Last element of array will be added to the start of array.
-            array[array.length - 1] = first;
+            array[0] = last;
         }
         return array;
     }
@@ -198,6 +198,15 @@ public class AES {
         byte[][] tmp = new byte[4][4];
         for(int x = 0; x < 4; x++){
             for(int y = 0; y < 4; y++){
+                tmp[x][y] = invSubByte(state[x][y]);
+            }
+        }
+        return tmp;
+    }
+    public byte[][] invSubBytes(byte[][] state){
+        byte[][] tmp = new byte[4][4];
+        for(int x = 0; x < 4; x++){
+            for(int y = 0; y < 4; y++){
                 tmp[x][y] = subByte(state[x][y]);
             }
         }
@@ -209,6 +218,16 @@ public class AES {
         tmp[0] = state[0];
         for(int i = 1; i < 4; i++){
            tmp[i] = shiftArrayLeft(state[i], i);
+        }
+
+        return tmp;
+    }
+
+    public byte[][] invShiftRows(byte[][] state){
+        byte[][] tmp = new byte[4][4];
+        tmp[0] = state[0];
+        for(int i = 1; i < 4; i++){
+            tmp[i] = shiftArrayRight(state[i], i);
         }
 
         return tmp;
@@ -242,6 +261,20 @@ public class AES {
         }
         return state;
     }
+    public byte[][] invMixColumns(byte[][] state){
+        int[] temp = new int[4];
+        byte b02 = (byte)0x0e, b03 = (byte)0x0b, b04 = (byte)0x0d, b05 = (byte)0x09;
+        for (int i = 0; i < 4; i++)
+        {
+            temp[0] = multiply(b02, state[0][i]) ^ multiply(b03, state[1][i]) ^ multiply(b04,state[2][i])  ^ multiply(b05,state[3][i]);
+            temp[1] = multiply(b05, state[0][i]) ^ multiply(b02, state[1][i]) ^ multiply(b03,state[2][i])  ^ multiply(b04,state[3][i]);
+            temp[2] = multiply(b04, state[0][i]) ^ multiply(b05, state[1][i]) ^ multiply(b02,state[2][i])  ^ multiply(b03,state[3][i]);
+            temp[3] = multiply(b03, state[0][i]) ^ multiply(b04, state[1][i]) ^ multiply(b05,state[2][i])  ^ multiply(b02,state[3][i]);
+            for (int j = 0; j < 4; j++)
+                state[j][i] = (byte) (temp[j]);
+        }
+        return state;
+    }
 
 
     public byte[] encrypt(byte[] text){
@@ -265,6 +298,37 @@ public class AES {
         state = shiftRows(state);
         state = addRoundKey(state, key, rounds);
         j=0;
+        for(int i = 0; i < 4; i++){
+            text[j] = state[i][0];
+            text[j++] = state[i][1];
+            text[j++] = state[i][2];
+            text[j++] = state[i][3];
+            j++;
+        }
+        return text;
+    }
+
+    public byte[] decrypt(byte[] text){
+        byte[][] state = new byte[4][4];
+        int j = 0;
+        for(int i = 0; i < 4; i++){
+            state[i][0] = text[j];
+            state[i][1] = text[j++];
+            state[i][2] = text[j++];
+            state[i][3] = text[j++];
+            j++;
+        }
+        state = addRoundKey(state, key, rounds);
+        for(int i = rounds-1; i > 0; i--){
+            state = invSubBytes(state);
+            state = invShiftRows(state);
+            state = invMixColumns(state);
+            state = addRoundKey(state, key, i);
+        }
+        state = invSubBytes(state);
+        state = invShiftRows(state);
+        state = addRoundKey(state, key, 0);
+        j = 0;
         for(int i = 0; i < 4; i++){
             text[j] = state[i][0];
             text[j++] = state[i][1];
@@ -306,9 +370,37 @@ public class AES {
                 block[j]=tmp[k++];
             }
             block = encrypt(block);
-            System.arraycopy(block, 0, result,k-16, block.length);
+            System.arraycopy(block, 0, result,k - 16, block.length);
 
         }
+        return result;
+    }
+
+    public byte[] decode(byte[] encryptedText, byte[] mainKey){
+        byte[] tmpResult = new byte[encryptedText.length];
+        byte[] block = new byte[16];
+        generateKey(mainKey);
+        for(int i = 0; i < encryptedText.length;){
+            for (int j = 0; j < 16; j++){
+                block[j] = encryptedText[i++];
+            }
+            block = decrypt(block);
+            System.arraycopy(block, 0, tmpResult,i - 16, block.length);
+        }
+        int x = 0;
+        for (int i = 1; i < 17; i += 2)
+        {
+            if (tmpResult[tmpResult.length - i] == 0 && tmpResult[tmpResult.length - i - 1] == 0)
+            {
+                x += 2;
+            }
+            else
+            {
+                break;
+            }
+        }
+        byte[] result = new byte[tmpResult.length-x];
+        System.arraycopy(tmpResult, 0, result, 0, tmpResult.length - x);
         return result;
     }
 
