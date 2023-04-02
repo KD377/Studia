@@ -1,16 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.aes.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aes.HelloController">
+   <children>
+      <TextField fx:id="keyField" alignment="CENTER" layoutX="610.0" layoutY="199.0" prefHeight="42.0" prefWidth="725.0" promptText="Enter key (32 char) or click generate">
+         <font>
+            <Font size="23.0" />
+         </font></TextField>
+      <Label alignment="CENTER" layoutX="566.0" layoutY="77.0" prefHeight="61.0" prefWidth="789.0" text="AES cyphering application by KD &amp; JO" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="49.0" />
+         </font>
+      </Label>
+      <Button fx:id="generateButton" layoutX="863.0" layoutY="280.0" mnemonicParsing="false" onAction="#onGenerateButtonClick" prefHeight="65.0" prefWidth="220.0" text="Generate Key">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="fileSwitch" layoutX="869.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleFileSwitch" prefHeight="38.0" prefWidth="198.0" text="From file ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="inputSwitch" layoutX="866.0" layoutY="727.0" mnemonicParsing="false" onAction="#handleInputSwitch" prefHeight="38.0" prefWidth="198.0" text="From text input">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="decodeButton" layoutX="867.0" layoutY="917.0" mnemonicParsing="false" onAction="#handleDecodeButton" prefHeight="71.0" prefWidth="214.0" text="Decode">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <Button fx:id="encodeButton" layoutX="867.0" layoutY="823.0" mnemonicParsing="false" onAction="#handleEncodeButton" prefHeight="71.0" prefWidth="214.0" text="Encode">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <Label fx:id="inputLabel" alignment="CENTER" layoutX="838.0" layoutY="543.0" textFill="RED">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="encodeInput" layoutX="84.0" layoutY="511.0" prefHeight="514.0" prefWidth="652.0" wrapText="true">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="decodeInput" layoutX="1184.0" layoutY="511.0" prefHeight="514.0" prefWidth="652.0" wrapText="true">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>

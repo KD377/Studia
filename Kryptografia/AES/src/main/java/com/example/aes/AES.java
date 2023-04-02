@@ -70,7 +70,7 @@ public class AES {
        this.rounds = rounds;
     }
 
-    private void generateKey(byte[] key){
+    public void generateKey(byte[] key){
         byte [] tmp = new byte[4];
         byte [] block = new byte[4];
         int x = 0;
@@ -125,12 +125,22 @@ public class AES {
         return str.getBytes(StandardCharsets.UTF_8);
     }
 
-    public  void printByteArrayInHex(byte[] byteArray) {
+    public String printByteArrayInHex(byte[] byteArray) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < byteArray.length; i++) {
-            String hexString = Integer.toHexString(byteArray[i] & 0xFF);
-            System.out.print(hexString.toUpperCase() + " ");
+            if((byteArray[i] & 0xFF) < 16){
+                String hexString ="0" + Integer.toHexString(byteArray[i] & 0xFF);
+                sb.append(hexString.toUpperCase());
+            }
+            else{
+                String hexString = Integer.toHexString(byteArray[i] & 0xFF);
+                sb.append(hexString.toUpperCase());
+            }
+
         }
+        return sb.toString();
     }
+
 
     public void printByteArrayInHex2(byte[][] byteArray2D) {
         for (int i = 0; i < byteArray2D.length; i++) {
@@ -147,19 +157,49 @@ public class AES {
     public static void main(String[] args) {
         AES aes = new AES(4,10);
         byte[] klucz = {(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
-        byte[] message = aes.stringToByteArray("a");
+        byte[] message = aes.stringToByteArray("aaa");
         //byte[][] state = {{(byte)0x63,(byte)0xEB,(byte)0x9F,(byte)0xA0},{(byte)0x2F,(byte)0x93,(byte)0x92,(byte)0xC0},{(byte)0xAF,(byte)0xC7,(byte)0xAB,(byte)0x30},{(byte)0xA2,(byte)0x20,(byte)0xCB,(byte)0x2B}};
         //aes.printByteArrayInHex(message);
         System.out.println();
         byte[] encoded = aes.encode(message,klucz);
         byte [] decrypted = aes.decode(encoded,klucz);
-        System.out.println();
-        aes.printByteArrayInHex(decrypted);
+        //System.out.println(aes.printByteArrayInHex(encoded));
+        //System.out.println();
+        //System.out.println(aes.printByteArrayInHex(decrypted));
 
 
         //aes.printByteArrayInHex(decrypted);
 
     }
+
+    public byte[] convertKeyStringToHexByteArray(String inputString) {
+        inputString = inputString.toLowerCase(); // Convert input to lowercase
+        byte[] byteArray = new byte[16]; // Create byte array of 16 elements
+
+        // Convert string to byte array
+        for (int i = 0; i < inputString.length() && i < 32; i += 2) {
+            int hexValue = Integer.parseInt(inputString.substring(i, i + 2), 16);
+            byteArray[i / 2] = (byte) hexValue;
+        }
+        return byteArray;
+    }
+
+    public byte[] convertStringToHexByteArray(String inputString) {
+        inputString = inputString.toLowerCase(); // Convert input to lowercase
+        int inputLength = inputString.length();
+        int byteArrayLength = (int) Math.ceil(inputLength / 2.0);
+        byte[] byteArray = new byte[byteArrayLength];
+
+        // Convert string to byte array
+        for (int i = 0; i < inputLength; i += 2) {
+            int endIndex = Math.min(i + 2, inputLength);
+            int hexValue = Integer.parseInt(inputString.substring(i, endIndex), 16);
+            byteArray[i / 2] = (byte) hexValue;
+        }
+        return byteArray;
+    }
+
+
 
     public byte[] xorWords(byte[] word1, byte[] word2) {
         if (word1.length == word2.length) {
@@ -399,11 +439,11 @@ public class AES {
             System.arraycopy(block, 0, tmpResult,i - 16, block.length);
         }
         int x = 0;
-        for (int i = 1; i < 17; i += 1)
+        for (int i = 1; i < 17; i += 2)
         {
-            if (tmpResult[tmpResult.length - i] == 0 )
+            if (tmpResult[tmpResult.length - i] == 0 && tmpResult[tmpResult.length - i-1] == 0 )
             {
-                x += 1;
+                x += 2;
             }
             else
             {
