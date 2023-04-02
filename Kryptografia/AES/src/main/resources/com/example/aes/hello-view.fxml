@@ -14,7 +14,7 @@
          <font>
             <Font size="23.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="566.0" layoutY="77.0" prefHeight="61.0" prefWidth="789.0" text="AES cyphering application by KD &amp; JO" textOverrun="CLIP">
+      <Label alignment="CENTER" layoutX="485.0" layoutY="79.0" prefHeight="71.0" prefWidth="951.0" text="AES cyphering application by KD &amp; JO" textOverrun="CLIP">
          <font>
             <Font name="System Bold" size="49.0" />
          </font>
@@ -59,5 +59,45 @@
             <Font size="26.0" />
          </font>
       </TextArea>
+      <Button fx:id="uploadFileButton" layoutX="516.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Upload file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="uploadFileText" layoutX="84.0" layoutY="277.0" prefHeight="65.0" prefWidth="418.0" promptText="Enter file URL to encode">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="uploadFileButtonDec" accessibleRoleDescription="d" layoutX="1616.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Upload file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="uploadFileTextDec" layoutX="1184.0" layoutY="276.0" prefHeight="74.0" prefWidth="409.0" promptText="Enter file URL to decode">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="saveFileText" layoutX="84.0" layoutY="398.0" prefHeight="65.0" prefWidth="418.0" promptText="Enter file URL to save">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="saveFileButton" layoutX="516.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Save file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="saveFileTextDec" layoutX="1184.0" layoutY="399.0" prefHeight="65.0" prefWidth="418.0" promptText="Enter file URL to save">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="saveFileButtonDec" layoutX="1616.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Save file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
