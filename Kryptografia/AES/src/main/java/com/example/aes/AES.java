@@ -1,6 +1,7 @@
 package com.example.aes;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 public class AES {
 
@@ -68,6 +69,13 @@ public class AES {
        key =  new byte[NUMBER_BYTES *(rounds + 1)][4];
        this.columns = columns;
        this.rounds = rounds;
+    }
+
+    public byte[] generateRandomByteArray() {
+        SecureRandom random = new SecureRandom();
+        byte[] byteArray = new byte[16];
+        random.nextBytes(byteArray);
+        return byteArray;
     }
 
     public void generateKey(byte[] key){
@@ -140,18 +148,6 @@ public class AES {
         }
         return sb.toString();
     }
-
-
-    public void printByteArrayInHex2(byte[][] byteArray2D) {
-        for (int i = 0; i < byteArray2D.length; i++) {
-            for (int j = 0; j < byteArray2D[i].length; j++) {
-                String hexString = Integer.toHexString(byteArray2D[i][j] & 0xFF);
-                System.out.print(hexString.toUpperCase() + " ");
-            }
-            System.out.println(); // Move to next line after each row
-        }
-    }
-
 
 
     public static void main(String[] args) {

@@ -69,7 +69,7 @@
             <Font size="23.0" />
          </font>
       </TextArea>
-      <Button fx:id="uploadFileButtonDec" accessibleRoleDescription="d" layoutX="1616.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Upload file">
+      <Button fx:id="uploadFileButtonDec" accessibleRoleDescription="d" layoutX="1616.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleUploadButtonClickDec" prefHeight="65.0" prefWidth="220.0" text="Upload file">
          <font>
             <Font size="26.0" />
          </font>
@@ -79,25 +79,17 @@
             <Font size="23.0" />
          </font>
       </TextArea>
-      <TextArea fx:id="saveFileText" layoutX="84.0" layoutY="398.0" prefHeight="65.0" prefWidth="418.0" promptText="Enter file URL to save">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="saveFileButton" layoutX="516.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Save file">
+      <Button fx:id="saveFileButton" layoutX="516.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="65.0" prefWidth="220.0" text="Save file">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <TextArea fx:id="saveFileTextDec" layoutX="1184.0" layoutY="399.0" prefHeight="65.0" prefWidth="418.0" promptText="Enter file URL to save">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="saveFileButtonDec" layoutX="1616.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="220.0" text="Save file">
+      <Button fx:id="saveFileButtonDec" layoutX="1616.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleSaveButtonDec" prefHeight="65.0" prefWidth="220.0" text="Save file">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
+      <Button fx:id="saveKey" layoutX="1372.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSaveKey" prefHeight="42.0" prefWidth="72.0" text="Save key" />
+      <Button fx:id="uploadKey" layoutX="493.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleUploadKey" prefHeight="42.0" prefWidth="87.0" text="Upload key" />
    </children>
 </AnchorPane>
