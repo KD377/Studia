@@ -44,7 +44,7 @@ public class HelloController {
 
     private boolean decodeFileOK = false;
 
-    private byte[] klucz;
+    private byte[] klucz = new byte[16];
 
     private byte[] inputBytes;
 
@@ -58,18 +58,18 @@ public class HelloController {
 
     @FXML
     protected void initialize() {
+        this.aes = new AES(4, 10);
     }
 
     @FXML
     protected void onGenerateButtonClick() {
-        this.aes = new AES(4, 10);
         if (keyField.getText().isBlank()) {
-            this.klucz = new byte[]{(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
-            keyField.setText(aes.printByteArrayInHex(klucz));
+            this.klucz = aes.generateRandomMainKey();
+            keyField.setText(Other.printByteArrayInHex(klucz));
         } else {
             if (Other.checkKeyString(keyField.getText())) {
-                this.klucz = aes.convertKeyStringToHexByteArray(keyField.getText());
-                keyField.setText(aes.printByteArrayInHex(klucz));
+                this.klucz = Other.convertKeyStringToHexByteArray(keyField.getText());
+                keyField.setText(Other.printByteArrayInHex(klucz));
             } else {
                 keyField.setText("");
                 keyField.setPromptText("The given key is not 32 characters");
@@ -111,15 +111,15 @@ public class HelloController {
                 return;
             }
             inputLabel.setText("");
-            message = aes.stringToByteArray(encodeInput.getText());
+            message = Other.stringToByteArray(encodeInput.getText());
             outputEncoded = aes.encode(message, klucz);
-            decodeInput.setText(aes.printByteArrayInHex(outputEncoded));
+            decodeInput.setText(Other.printByteArrayInHex(outputEncoded));
         } else if (fileSwitch.isSelected()) {
             inputLabel.setText("");
             if (inputBytes.length != 0 && encodeFileOK) {
                 inputLabel.setText("");
                 outputEncoded = aes.encode(inputBytes, klucz);
-                decodeInput.setText(aes.printByteArrayInHex(outputEncoded));
+                decodeInput.setText(Other.printByteArrayInHex(outputEncoded));
             } else {
                 inputLabel.setText("File not loaded");
             }
@@ -136,7 +136,7 @@ public class HelloController {
                 return;
             }
             inputLabel.setText("");
-            byte[] encrypted = aes.convertStringToHexByteArray(decodeInput.getText());
+            byte[] encrypted = Other.convertStringToHexByteArray(decodeInput.getText());
             encodeInput.clear();
             outputDecoded = aes.decode(encrypted, klucz);
             encodeInput.setText(Other.byteArrayToString(outputDecoded));
@@ -195,7 +195,7 @@ public class HelloController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            decodeInput.setText(aes.printByteArrayInHex(inputBytesEncoded));
+            decodeInput.setText(Other.printByteArrayInHex(inputBytesEncoded));
 
         } else {
             uploadFileTextDec.setPromptText("File is not valid");
@@ -269,8 +269,8 @@ public class HelloController {
                     keyField.setPromptText("The given key is not 32 characters");
                     keyField.setStyle("-fx-prompt-text-fill: red;");
                 } else {
-                    klucz = tmp;
-                    keyField.setText(aes.printByteArrayInHex(klucz));
+                    this.klucz = tmp;
+                    keyField.setText(Other.printByteArrayInHex(klucz));
                 }
                 inputStream1.close();
             } catch (IOException e) {

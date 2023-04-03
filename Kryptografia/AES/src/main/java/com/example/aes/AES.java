@@ -61,9 +61,6 @@ public class AES {
 
     private final int [] Rcon = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36};
 
-    public byte[][] getKey() {
-        return key;
-    }
 
     public AES(int columns, int rounds) {
        key =  new byte[NUMBER_BYTES *(rounds + 1)][4];
@@ -71,7 +68,7 @@ public class AES {
        this.rounds = rounds;
     }
 
-    public byte[] generateRandomByteArray() {
+    public byte[] generateRandomMainKey() {
         SecureRandom random = new SecureRandom();
         byte[] byteArray = new byte[16];
         random.nextBytes(byteArray);
@@ -129,71 +126,6 @@ public class AES {
         return number;
     }
 
-    public byte[] stringToByteArray(String str) {
-        return str.getBytes(StandardCharsets.UTF_8);
-    }
-
-    public String printByteArrayInHex(byte[] byteArray) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < byteArray.length; i++) {
-            if((byteArray[i] & 0xFF) < 16){
-                String hexString ="0" + Integer.toHexString(byteArray[i] & 0xFF);
-                sb.append(hexString.toUpperCase());
-            }
-            else{
-                String hexString = Integer.toHexString(byteArray[i] & 0xFF);
-                sb.append(hexString.toUpperCase());
-            }
-
-        }
-        return sb.toString();
-    }
-
-
-    public static void main(String[] args) {
-        AES aes = new AES(4,10);
-        byte[] klucz = {(byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF, (byte) 0x01, (byte) 0x23, (byte) 0x45, (byte) 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
-        byte[] message = aes.stringToByteArray("aaa");
-        //byte[][] state = {{(byte)0x63,(byte)0xEB,(byte)0x9F,(byte)0xA0},{(byte)0x2F,(byte)0x93,(byte)0x92,(byte)0xC0},{(byte)0xAF,(byte)0xC7,(byte)0xAB,(byte)0x30},{(byte)0xA2,(byte)0x20,(byte)0xCB,(byte)0x2B}};
-        //aes.printByteArrayInHex(message);
-        System.out.println();
-        byte[] encoded = aes.encode(message,klucz);
-        byte [] decrypted = aes.decode(encoded,klucz);
-        //System.out.println(aes.printByteArrayInHex(encoded));
-        //System.out.println();
-        //System.out.println(aes.printByteArrayInHex(decrypted));
-
-
-        //aes.printByteArrayInHex(decrypted);
-
-    }
-
-    public byte[] convertKeyStringToHexByteArray(String inputString) {
-        inputString = inputString.toLowerCase(); // Convert input to lowercase
-        byte[] byteArray = new byte[16]; // Create byte array of 16 elements
-
-        // Convert string to byte array
-        for (int i = 0; i < inputString.length() && i < 32; i += 2) {
-            int hexValue = Integer.parseInt(inputString.substring(i, i + 2), 16);
-            byteArray[i / 2] = (byte) hexValue;
-        }
-        return byteArray;
-    }
-
-    public byte[] convertStringToHexByteArray(String inputString) {
-        inputString = inputString.toLowerCase(); // Convert input to lowercase
-        int inputLength = inputString.length();
-        int byteArrayLength = (int) Math.ceil(inputLength / 2.0);
-        byte[] byteArray = new byte[byteArrayLength];
-
-        // Convert string to byte array
-        for (int i = 0; i < inputLength; i += 2) {
-            int endIndex = Math.min(i + 2, inputLength);
-            int hexValue = Integer.parseInt(inputString.substring(i, endIndex), 16);
-            byteArray[i / 2] = (byte) hexValue;
-        }
-        return byteArray;
-    }
 
 
 
