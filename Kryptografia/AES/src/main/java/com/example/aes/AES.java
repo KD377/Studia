@@ -59,6 +59,7 @@ public class AES {
             0x99, 0x61, 0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1,
             0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D };
 
+    //tablica Rcon kolejne potegi dwojki(Hexadecymalnie).
     private final int [] Rcon = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36};
 
 
@@ -68,6 +69,7 @@ public class AES {
        this.rounds = rounds;
     }
 
+    //genrowanie losowo pierwszych 16 bajtow glownego klucza
     public byte[] generateRandomMainKey() {
         SecureRandom random = new SecureRandom();
         byte[] byteArray = new byte[16];
@@ -75,6 +77,7 @@ public class AES {
         return byteArray;
     }
 
+    //wygenerowanie kolejnych 10 kluczy rundy za pomoca algorytmu
     public void generateKey(byte[] key){
         byte [] tmp = new byte[4];
         byte [] block = new byte[4];
@@ -89,20 +92,16 @@ public class AES {
             x++;
             y+=4;
         }
-
+        //pobranie ostatnich 4 bajtow poprzedniego klucza
         for (int round = 1; round <= 10; round++){
-            //copy last 4 bytes of the previous key
             tmp[0] = this.key[(round * 4) - 1][0];
             tmp[1] = this.key[(round * 4) - 1][1];
             tmp[2] = this.key[(round * 4) - 1][2];
             tmp[3] = this.key[(round * 4) - 1][3];
-            // shift left all element by 1
             tmp = shiftArrayLeft(tmp,1);
-            // subsitute bytes with the corresponding s-box elements
             for(int i = 0;i<4;i++){
                 tmp[i] = subByte(tmp[i]);
             }
-            //Rcon operation
             tmp[0] ^=  (byte)Rcon[round-1];
             for(int j = 0;j < 4;j++){
                 for (int i=0; i<4; i++){
@@ -128,7 +127,7 @@ public class AES {
 
 
 
-
+    //oepracja XOR dwoch tablic(uzywane do generowania kluczy)
     public byte[] xorWords(byte[] word1, byte[] word2) {
         if (word1.length == word2.length) {
             byte[] tmp = new byte[word1.length];
@@ -140,41 +139,35 @@ public class AES {
             return null;
         }
     }
-
+    //przesuniecie wartosci w tablicy o step w lewo
     public byte[] shiftArrayLeft(byte[] array, int step) {
         for (int i = 0; i < step; i++) {
             int j;
             byte first;
-            //Stores the last element of array
             first = array[0];
 
             for (j = 1; j < array.length; j++) {
-                //Shift element of array by one
                 array[j - 1] = array[j];
             }
-            //Last element of array will be added to the start of array.
             array[array.length - 1] = first;
         }
         return array;
     }
-
+    //przesuniecie wartosci w tablicy o step w prawo
     public byte[] shiftArrayRight(byte[] array, int step) {
         for (int i = 0; i < step; i++) {
             int j;
             byte last;
-            //Stores the last element of array
             last = array[3];
 
             for (j = array.length-2 ; j >= 0; j--) {
-                //Shift element of array by one
                 array[j+1] = array[j];
             }
-            //Last element of array will be added to the start of array.
             array[0] = last;
         }
         return array;
     }
-
+    //operacja XOR bloku state i klucza dla danej rundy
     public byte[][] addRoundKey(byte[][] state, byte[][] roundKey, int round){
         byte[][] tmp = new byte[4][4];
         for(int i = 0; i < 4; i++){
@@ -184,7 +177,7 @@ public class AES {
         }
         return tmp;
     }
-
+    //zamiana bajtow na odpowiadajace w S-boxie
     public byte[][] subBytes(byte[][] state){
         byte[][] tmp = new byte[4][4];
         for(int x = 0; x < 4; x++){
@@ -203,7 +196,7 @@ public class AES {
         }
         return tmp;
     }
-
+    //uzycie shiftArrayLeft dla tablicy dwuwymiarowej
     public byte[][] shiftRows(byte[][] state){
         byte[][] tmp = new byte[4][4];
         tmp[0] = state[0];
@@ -213,7 +206,7 @@ public class AES {
 
         return tmp;
     }
-
+    //uzycie shiftArrayRight dla tablicy dwuwymiarowej
     public byte[][] invShiftRows(byte[][] state){
         byte[][] tmp = new byte[4][4];
         tmp[0] = state[0];
@@ -239,6 +232,12 @@ public class AES {
         }
         return r;
     }
+    //przemnozenie bloku do zaszyfrowania przez ustalona macierz
+    // 2 3 1 1
+    // 1 2 3 1
+    // 1 1 2 3
+    // 3 1 1 2
+
 
     public byte[][] mixColumns(byte[][] state){
         int[] temp = new int[4];
@@ -254,7 +253,12 @@ public class AES {
         }
         return state;
     }
-    
+    //przemnozenie bloku do zaszyfrowania przez ustalona macierz
+    // e b d 9
+    // 9 e b d
+    // d 9 e b
+    // b d 9 e
+
     public byte[][] invMixColumns(byte[][] state){
         int[] temp = new int[4];
         byte b02 = (byte)0x0e, b03 = (byte)0x0b, b04 = (byte)0x0d, b05 = (byte)0x09;
@@ -271,12 +275,17 @@ public class AES {
     }
 
 
-
+    //wykonanie wyszystkich krokow algorytmu w celu zaszyfrowania 16 bajtow
     public byte[] encrypt(byte[] text){
         byte[][] state = new byte[4][4];
         int j = 0;
-        for (int i = 0; i < text.length; i++)
-            state[i / 4][i % 4] = text[i];
+        for(int i = 0; i < 4; i++){
+            state[i][0] = text[j];
+            state[i][1] = text[j+1];
+            state[i][2] = text[j+2];
+            state[i][3] = text[j+3];
+            j+=4;
+        }
         state = addRoundKey(state, key, 0);
         for(int i = 1; i < rounds; i++){
             state = subBytes(state);
@@ -289,16 +298,27 @@ public class AES {
         state = shiftRows(state);
         state = addRoundKey(state, key, 10);
         j=0;
-        for (int i = 0; i < text.length; i++)
-            text[i] = state[i / 4][i%4];
+        for(int i = 0; i < 4; i++){
+            text[j] = state[i][0];
+            text[j+1] = state[i][1];
+            text[j+2] = state[i][2];
+            text[j+3] = state[i][3];
+            j+=4;
+        }
         return text;
     }
 
+    //wykonanie wyszystkich krokow algorytmu w celu deszyfrowania 16 bajtow
     public byte[] decrypt(byte[] text){
         byte[][] state = new byte[4][4];
         int j = 0;
-        for (int i = 0; i < text.length; i++)
-            state[i/4][i % 4] = text[i];
+        for(int i = 0; i < 4; i++){
+            state[i][0] = text[j];
+            state[i][1] = text[j+1];
+            state[i][2] = text[j+2];
+            state[i][3] = text[j+3];
+            j+=4;
+        }
         state = addRoundKey(state, key, 10);
         for(int i = 9; i > 0; i--){
             state = invSubBytes(state);
@@ -311,11 +331,16 @@ public class AES {
         state = invShiftRows(state);
         state = addRoundKey(state, key, 0);
         j = 0;
-        for (int i = 0; i < text.length; i++)
-            text[i] = state[i / 4][i%4];
+        for(int i = 0; i < 4; i++){
+            text[j] = state[i][0];
+            text[j+1] = state[i][1];
+            text[j+2] = state[i][2];
+            text[j+3] = state[i][3];
+            j+=4;
+        }
         return text;
     }
-
+    //zaszyfrowanie calego teksty, pliku lub zdjecia
     public byte[] encode(byte[] text, byte[] mainKey){
         int length;
         int x = text.length/16;
@@ -329,7 +354,7 @@ public class AES {
             length = x * 16;
         }
 
-        byte[] result = new byte[length];
+        byte[] output = new byte[length];
         byte[] tmp = new byte[length];
         byte[] block = new byte[16];
         generateKey(mainKey);
@@ -347,14 +372,14 @@ public class AES {
                 block[j]=tmp[k++];
             }
             block = encrypt(block);
-            System.arraycopy(block, 0, result,k - 16, block.length);
+            System.arraycopy(block, 0, output,k - 16, block.length);
 
         }
-        return result;
+        return output;
     }
-
+    //deszyfrowanie calego teksty, pliku lub zdjecia
     public byte[] decode(byte[] encryptedText, byte[] mainKey){
-        byte[] tmpResult = new byte[encryptedText.length];
+        byte[] tmp = new byte[encryptedText.length];
         byte[] block = new byte[16];
         generateKey(mainKey);
         for(int i = 0; i < encryptedText.length;){
@@ -364,12 +389,12 @@ public class AES {
             }
 
             block = decrypt(block);
-            System.arraycopy(block, 0, tmpResult,i - 16, block.length);
+            System.arraycopy(block, 0, tmp,i - 16, block.length);
         }
         int x = 0;
         for (int i = 1; i < 17; i += 2)
         {
-            if (tmpResult[tmpResult.length - i] == 0 && tmpResult[tmpResult.length - i-1] == 0 )
+            if (tmp[tmp.length - i] == 0 && tmp[tmp.length - i-1] == 0 )
             {
                 x += 2;
             }
@@ -378,9 +403,9 @@ public class AES {
                 break;
             }
         }
-        byte[] result = new byte[tmpResult.length-x];
-        System.arraycopy(tmpResult, 0, result, 0, tmpResult.length - x);
-        return result;
+        byte[] output = new byte[tmp.length-x];
+        System.arraycopy(tmp, 0, output, 0, tmp.length - x);
+        return output;
     }
 
 
