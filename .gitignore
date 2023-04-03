@@ -4,6 +4,6 @@
 **/.idea
 **/cmake-build-debug
 **/final.txt
-**/target
-target/
+**/target/
+Kryptografia/AES/src/main/resources/target/
 
