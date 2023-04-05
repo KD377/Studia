@@ -10,6 +10,17 @@ end = float(input("do: "))
 amount = int(input("Podaj ilosc punktow: "))
 
 if funkcja == '1':
-    funkcje.lagrange_interpolation(begin, end, funkcje.f, amount)
+    coefficients = funkcje.lagrange_interpolation(begin, end, funkcje.f, amount)
+    print(coefficients)
 elif funkcja == '2':
-    funkcje.lagrange_interpolation(begin, end, funkcje.g, amount)
+    coefficients = funkcje.lagrange_interpolation(begin, end, funkcje.g, amount)
+    print(coefficients)
+elif funkcja == '3':
+    coefficients = funkcje.lagrange_interpolation(begin, end, funkcje.h, amount)
+    print(coefficients)
+elif funkcja == '4':
+    coefficients = funkcje.lagrange_interpolation(begin, end, funkcje.i, amount)
+    print(coefficients)
+elif funkcja == '5':
+    coefficients = funkcje.lagrange_interpolation(begin, end, funkcje.j, amount)
+    print(coefficients)
