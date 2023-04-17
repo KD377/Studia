@@ -1,7 +1,3 @@
-//
-// Created by Kuba on 11.04.2023.
-//
-
 #include "Config.h"
 #include <iostream>
 HANDLE Config::config(LPCTSTR port) {

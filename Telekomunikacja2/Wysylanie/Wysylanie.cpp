@@ -4,10 +4,10 @@
 #include "SumaKontrolna.h"
 #include "Config.h"
 const char SOH = 0x01;
+const char EOT = 0x04;
+const char ACK = 0x06;
 const char NAK = 0x15;
 const char CAN = 0x18;
-const char ACK = 0x06;
-const char EOT = 0x04;
 const char C = 0x43;
 int NumberOfBytes = 1;
 unsigned long BufferSize = sizeof(char);
@@ -30,7 +30,7 @@ int Wysylanie::sending(LPCTSTR port) {
 
         if(buffer == C){
             checkSum = "CRC";
-            std::cout<<"wybrano CRC\n";
+            std::cout<<"Wybrano CRC\n";
             transmission = true;
             break;
         }
@@ -82,12 +82,11 @@ int Wysylanie::sending(LPCTSTR port) {
             if(checkSum == "CRC"){
                 SumaKontrolna sumaKontrolna;
                 int CRC = sumaKontrolna.calculateCRC(dataBlock, 128);
-                char characterCRC = sumaKontrolna.characterCRC(CRC, 1);
-                std::cout<<"\nCRC= "<<characterCRC;
-                WriteFile(portHandle, &characterCRC, NumberOfBytes, &BufferSize, NULL);
-                characterCRC = sumaKontrolna.characterCRC(CRC, 2);
-                std::cout<<" i "<<characterCRC;
-                WriteFile(portHandle, &characterCRC, NumberOfBytes, &BufferSize, NULL);
+                char characterCRC[2];
+                characterCRC [0]= sumaKontrolna.characterCRC(CRC, 1);
+                characterCRC [1] = sumaKontrolna.characterCRC(CRC, 2);
+                WriteFile(portHandle, &characterCRC[0], NumberOfBytes, &BufferSize, NULL);
+                WriteFile(portHandle, &characterCRC[1], NumberOfBytes, &BufferSize, NULL);
             }
             else if(checkSum == "Algebraiczna"){
                 SumaKontrolna sumaKontrolna1;
