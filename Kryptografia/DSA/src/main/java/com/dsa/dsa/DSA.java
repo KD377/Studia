@@ -2,6 +2,7 @@ package com.dsa.dsa;
 
 import java.math.BigInteger;
 import java.security.*;
+import java.util.Random;
 
 public class DSA {
 
@@ -12,7 +13,7 @@ public class DSA {
 
     public DSA(){
         random = new SecureRandom();
-        generateKey();
+        //generateKey();
         try{
             messageDigest=MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException ex) {ex.printStackTrace();}
@@ -23,24 +24,23 @@ public class DSA {
         while (keyLen%64 != 0){
             keyLen++;
         }
-        q = BigInteger.probablePrime(160,random);
+        //System.out.print(keyLen);
+
+        q = BigInteger.probablePrime(160,new Random());
         BigInteger help1;
         do{
-            p=BigInteger.probablePrime(keyLen,random);
+            p=BigInteger.probablePrime(keyLen,new Random());
             help1 = p.subtract(BigInteger.ONE);
-        }while(!help1.mod(q).equals(BigInteger.ZERO));
+            p=p.subtract(help1.remainder(q));
+        }while(!p.isProbablePrime(2));
 
-        boolean isPrimitiveRootOfP = false;
 
         help1 = p.subtract(BigInteger.ONE);
-        BigInteger exponent;
-
-        while(!isPrimitiveRootOfP){
+        h = new BigInteger(keyLen-2,random);
+        while(h.modPow(help1.divide(q),p).compareTo(BigInteger.ONE)!=1){
             h = new BigInteger(keyLen-2,random);
-            exponent = help1.divide(q);
-            g = h.modPow(exponent, p);
-            isPrimitiveRootOfP = !g.modPow(q, p).equals(BigInteger.ONE);
         }
+        g=h.modPow(help1.divide(q),p);
 
         x = new BigInteger(q.bitLength() - 1, random);
         while (x.compareTo(BigInteger.ZERO) == 0 || x.compareTo(q.subtract(BigInteger.ONE)) > 0) {
@@ -49,6 +49,7 @@ public class DSA {
         x = x.add(BigInteger.ONE);
         y=g.modPow(x,p);
     }
+
 
     public BigInteger[] sign(byte[] text){
         messageDigest.update(text);
@@ -69,5 +70,43 @@ public class DSA {
         BigInteger u2=signature[0].multiply(w).mod(q);
         BigInteger v=g.modPow(u1, p).multiply(y.modPow(u2, p)).mod(p).mod(q);
         return v.compareTo(signature[0]) == 0;
+    }
+
+    public static void main(String[] args) {
+        DSA dsa = new DSA();
+
+        // Generate a test message to sign and verify
+        byte[] message = "Hello, world!".getBytes();
+
+        // Sign the message
+        BigInteger[] signature = dsa.sign(message);
+
+        // Verify the signature
+        boolean isValid = dsa.verifySignature(message, signature);
+
+        // Print the results
+        System.out.println("Message: " + new String(message));
+        System.out.println("Signature: (" + signature[0] + ", " + signature[1] + ")");
+        System.out.println("Signature is valid: " + isValid);
+    }
+
+    public BigInteger getP() {
+        return p;
+    }
+
+    public BigInteger getQ() {
+        return q;
+    }
+
+    public BigInteger getX() {
+        return x;
+    }
+
+    public BigInteger getY() {
+        return y;
+    }
+
+    public BigInteger getG() {
+        return g;
     }
 }
