@@ -109,4 +109,24 @@ public class DSA {
     public BigInteger getG() {
         return g;
     }
+
+    public void setP(BigInteger p) {
+        this.p = p;
+    }
+
+    public void setQ(BigInteger q) {
+        this.q = q;
+    }
+
+    public void setG(BigInteger g) {
+        this.g = g;
+    }
+
+    public void setX(BigInteger x) {
+        this.x = x;
+    }
+
+    public void setY(BigInteger y) {
+        this.y = y;
+    }
 }

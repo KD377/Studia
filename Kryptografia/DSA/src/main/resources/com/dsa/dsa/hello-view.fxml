@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dsa.dsa.HelloController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="368.0" layoutY="14.0" prefHeight="35.0" prefWidth="334.0" text="DSA digital signature program" textAlignment="CENTER">
@@ -43,5 +42,11 @@
       </RadioButton>
       <Button fx:id="signButton" layoutX="480.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleSignButton" prefHeight="26.0" prefWidth="93.0" text="Sign" />
       <Button fx:id="verifyButton" layoutX="480.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleVerifyButton" prefHeight="26.0" prefWidth="93.0" text="Verify" />
+      <Button fx:id="loadFileButton" layoutX="72.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleLoadFileButton" prefHeight="25.0" prefWidth="86.0" text="Load file" />
+      <Button fx:id="loadSignButton" layoutX="882.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleLoadSignButton" prefHeight="25.0" prefWidth="86.0" text="Load sign" />
+      <Button fx:id="saveSignButton" layoutX="751.0" layoutY="643.0" mnemonicParsing="false" onAction="#handleSaveSignButton" prefHeight="25.0" prefWidth="93.0" text="Save sign" />
+      <Button fx:id="saveFileButton" layoutX="202.0" layoutY="643.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Save file " />
+      <Button fx:id="saveKeyButton" layoutX="72.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleSaveKeyButton" prefHeight="25.0" prefWidth="86.0" text="Save key" />
+      <Button fx:id="loadKeyButton" layoutX="882.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleLoadKeyButton" prefHeight="25.0" prefWidth="86.0" text="Load keys" />
    </children>
 </AnchorPane>
