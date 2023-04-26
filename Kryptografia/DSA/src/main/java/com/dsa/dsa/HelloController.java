@@ -133,7 +133,7 @@ public class HelloController {
             }
             alert.showAndWait();
         } else if (fileSwitch.isSelected()) {
-            isVerified = dsa.verifySignature(Utilities.stringToByteArray(inputArea.getText()),signature);
+            isVerified = dsa.verifySignature(inputFile,signature);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             if(isVerified){
