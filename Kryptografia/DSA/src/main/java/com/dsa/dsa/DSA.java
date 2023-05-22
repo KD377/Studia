@@ -71,24 +71,7 @@ public class DSA {
         BigInteger v=g.modPow(u1, p).multiply(y.modPow(u2, p)).mod(p).mod(q);
         return v.compareTo(signature[0]) == 0;
     }
-
-    public static void main(String[] args) {
-        DSA dsa = new DSA();
-
-        // Generate a test message to sign and verify
-        byte[] message = "Hello, world!".getBytes();
-
-        // Sign the message
-        BigInteger[] signature = dsa.sign(message);
-
-        // Verify the signature
-        boolean isValid = dsa.verifySignature(message, signature);
-
-        // Print the results
-        System.out.println("Message: " + new String(message));
-        System.out.println("Signature: (" + signature[0] + ", " + signature[1] + ")");
-        System.out.println("Signature is valid: " + isValid);
-    }
+    
 
     public BigInteger getP() {
         return p;
