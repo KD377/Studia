@@ -1,51 +1,49 @@
 import numpy as np
 import math
-from numpy.polynomial import legendre
 import matplotlib.pyplot as plt
-#from scipy.special import hermite
-#from scipy.special import hermite_norm
-#from scipy.integrate import quad
 
 
 def f(x):
-    return x**2 + 3
+    return x ** 3 + x ** 2 + x + 5
+
 
 def g(x):
-    return math.cos(2*x)
+    return math.sin(2 * x ** 2)
+
 
 def h(x):
-    return 4*math.log(x+3)
+    return 12 * math.log(x**2 + 5)
 
 
-def simpson_approximation(f, a, b, n):
-    h = (b - a) / n
+def simpsons_method(func, a, b):
+    h = (b - a) / 2
+    x0 = a
+    x1 = a + h
+    x2 = b
 
-    first = f(a)
-    last = f(b)
-
-    x = a
-    sum = 0
-    for i in range(n-1):
-        x += h
-        value = f(x)
-        if i % 2 == 0:
-            sum += 4 * value
-        else:
-            sum += 2 * value
-    return (h/3) * (first + sum + last)
+    integral = (h / 3) * (func(x0) + 4 * func(x1) + func(x2))
+    return integral
 
 
-def approximate_integral_with_accuracy(f, a, b, desired_accuracy):
-    n = 2
-    previous_approximation = simpson_approximation(f, a, b, n)
-    current_approximation = previous_approximation
+def newton_cotes_quadrature(func, a, b, accuracy):
+    num_nodes = 3
+    prev_integral = 0
+    integral = simpsons_method(func, a, b)
 
-    while abs(current_approximation - previous_approximation) > desired_accuracy:
-        n *= 2
-        previous_approximation = current_approximation
-        current_approximation = simpson_approximation(f, a, b, n)
+    while abs(integral - prev_integral) > accuracy:
+        prev_integral = integral
+        num_nodes *= 2
+        h = (b - a) / num_nodes
 
-    return current_approximation
+        integral = 0
+        for i in range(num_nodes // 2):
+            x0 = a + i * 2 * h
+            x1 = x0 + h
+            x2 = x1 + h
+            integral += (h / 3) * (func(x0) + 4 * func(x1) + func(x2))
+
+    return integral
+
 
 def gauss_hermite_quadrature(func, num_nodes):
     nodes_weights = {
@@ -79,31 +77,44 @@ def gauss_hermite_quadrature(func, num_nodes):
 
     return result
 
+def plot_function(func, x_min, x_max):
+    x = np.linspace(x_min, x_max, 100)
+    y = [func(i) for i in x]
+
+    function_name = func.__name__  # Get the name of the function
+    plt.plot(x, y)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Plot of {}'.format(function_name))  # Set the title using the function name
+    plt.grid(True)
+    plt.show()
 
 
-
-choice = input("Wybierz funkcje:\n1. x^2 + 5\n2. sin(2x)\n3. 2log(x+1) ")
+choice = input("Wybierz funkcje:\n1. x^3+x^2+x+5\n2. sin(2x^2)\n3. 12log(x^2+5) ")
 a = int(input("podaj dolny przedział: "))
 b = int(input("podaj gorny przedział: "))
 eps = float(input("podaj dokladnosc: "))
 if choice == "1":
-    wynik=approximate_integral_with_accuracy(f,a,b,eps)
+    wynik=newton_cotes_quadrature(f,a,b,eps)
     print("Wynik kwadratura Simpsona: ",wynik)
     for i in range(2,6):
         wynik1 = gauss_hermite_quadrature(f,i)
         print("Wynik dla hermite dla ",i," wezlow: ",wynik1)
+    plot_function(f,a,b)
 if choice == "2":
-    wynik = approximate_integral_with_accuracy(g, a, b, eps)
+    wynik = newton_cotes_quadrature(g, a, b, eps)
     print("Wynik kwadratura Simpsona: ", wynik)
     for i in range(2,6):
         wynik1 = gauss_hermite_quadrature(g,i)
         print("Wynik dla hermite dla ",i," wezlow: ",wynik1)
+    plot_function(g,a,b)
 if choice == "3":
-    wynik = approximate_integral_with_accuracy(h, a, b, eps)
+    wynik = newton_cotes_quadrature(h, a, b, eps)
     print("Wynik kwadratura Simpsona: ", wynik)
     for i in range(2,6):
         wynik1 = gauss_hermite_quadrature(h,i)
         print("Wynik dla hermite dla ",i," wezlow: ",wynik1)
+    plot_function(h,a,b)
 
 
 
