@@ -27,7 +27,8 @@
 
 const BASE_URL = "https://api.jsonbin.io/v3/b/653243a112a5d376598e29ba ";
 const SECRET_KEY = "$2a$10$SDg.eOZNYeybzYGjPo84GemsKOze3NS32iG/TgQKxx3afxMjkAYPm";
-let todoList = []; //declares a new array for Your todo list
+let todoList = [];
+let todoListCopy = []; //declares a new array for Your todo list
 $.ajax({
   // copy Your bin identifier here. It can be obtained in the dashboard
   url: BASE_URL,
@@ -36,9 +37,7 @@ $.ajax({
     'X-Master-Key': SECRET_KEY
   },
   success: (data) => {
-    console.log(data);
     todoList = data.record;
-    console.log(todoList[0])
   },
   error: (err) => {
     console.log(err.responseJSON);
@@ -67,6 +66,7 @@ let updateJSONbin = function () {
 let updateTodoList = function () {
   let todoListTable = document.getElementById("todoListTable");
   let buttonContainer = document.getElementById("buttonContainer");
+  let filterInput = document.getElementById("inputSearch");
 
   //remove all elements
   while (todoListTable.firstChild) {
@@ -87,10 +87,6 @@ let updateTodoList = function () {
         text = text.substring(0,10);
       }
       let newCell = document.createElement("td");
-      if (key === 'title')
-      {
-        newCell.className = "text-uppercase";
-      }
       newCell.textContent = text;
       newRow.appendChild(newCell);   
     }
@@ -99,7 +95,7 @@ let updateTodoList = function () {
     let newDeleteButton = document.createElement("input");
     newDeleteButton.type = "button";
     newDeleteButton.value = "Delete";
-    newDeleteButton.className = "btn btn-danger";
+    newDeleteButton.className = "btn btn-warning";
     newDeleteButton.addEventListener("click",
       function () {
         deleteTodo(todo);
@@ -111,17 +107,19 @@ let updateTodoList = function () {
   }
 
   //add all elements
-  let filterInput = document.getElementById("inputSearch");
-  for (let todo in todoList) {
+  for (let i=0; i < todoList.length; i++) {
     if (
-      (filterInput.value == "") ||
-      (todoList[todo].title.includes(filterInput.value)) ||
-      (todoList[todo].description.includes(filterInput.value))
+      (filterInput.value != '' && todoList[i].title.includes(filterInput.value)) ||
+      (filterInput.value != '' && todoList[i].description.includes(filterInput.value))
     ) {
-      let newElement = document.createElement("p");
-      let newContent = document.createTextNode(todoList[todo].title + " " +
-        todoList[todo].description);
-      newElement.appendChild(newContent);
+      let highlightedRow = todoListTable.rows[i]; 
+
+    // Iterate through the cells in the row and add the class to each cell
+    for (let j = 0; j < highlightedRow.cells.length; j++) {
+      highlightedRow.cells[j].classList.add("bg-secondary");
+    }
+
+      //newElement.appendChild(newContent);
       //todoListDiv.appendChild(newElement);
     }
   }
@@ -158,5 +156,29 @@ let addTodo = function () {
   todoList.push(newTodo);
   //window.localStorage.setItem("todos", JSON.stringify(todoList));
   updateJSONbin();
+}
+
+let sort = function(){
+  console.log("dziala")
+  const startDate = new Date(document.getElementById("inputDateFrom").value);
+  const endDate = new Date(document.getElementById("inputDateTo").value);
+
+  const filteredData = todoList.filter(item => {
+    const dueDate = new Date(item.dueDate);
+    return dueDate >= startDate && dueDate <= endDate;
+  });
+
+  filteredData.sort((a, b) => a.dueDate - b.dueDate);
+  todoListCopy = todoList;
+  todoList = filteredData;
+  let newDiv = document.createElement("div");
+  newDiv.textContent = "Consider you are seeing filtered data only"
+  newDiv.className = "text-center text-danger"
+  document.getElementById('tableContainer').appendChild(newDiv);
+}
+
+let reset = function (){
+  todoList = todoListCopy;
+  document.getElementById("tableContainer").removeChild(document.getElementById("tableContainer").lastChild);
 }
 
