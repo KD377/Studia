@@ -173,7 +173,7 @@ let sort = function(){
   todoList = filteredData;
   let newDiv = document.createElement("div");
   newDiv.textContent = "Consider you are seeing filtered data only"
-  newDiv.className = "text-center text-danger"
+  newDiv.className = "text-center text-white bg-danger rounded p-3"
   document.getElementById('tableContainer').appendChild(newDiv);
 }
 
