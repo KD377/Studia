@@ -1,12 +1,10 @@
 import random
 import math
-import matplotlib.pyplot as plt
-import numpy as np
 
 
-def random_value(x, a, b):
+def random_value(x, a, b, T):
     while True:
-        x = random.uniform(x - 50.0, x + 50.0)
+        x = random.uniform(x - 2.0 * T, x + 2.0 * T)
         if a < x < b:
             break
     return x
@@ -21,29 +19,36 @@ def f3(x):
         return 0
 
 
-def symulowane_wyzarzanie():
-    T = 500.0
-    a = 0.999
-    x = random.uniform(-150.0, 150.0)
-    for j in range(3000):  # 3 proby
-        x2 = random_value(x, -150.0, 150.0)
+def f4(x):
+    return x * math.sin(10 * math.pi * x) + 1
 
-        print(f3(x2))
-        print(f3(x))
-        if f3(x2) > f3(x):
-            print("git")
+
+def simulated_annealing(funkcja, min_val, max_val, T, a, M):
+    x = random.uniform(min_val, max_val)
+    for j in range(M):  # 3 attempts
+        x2 = random_value(x, min_val, max_val, T)
+
+        if funkcja(x2) > funkcja(x):
             x = x2
-            print("x=", x)
         else:
-            if math.exp(-(f3(x) - f3(x2)) / (0.1 * T)) > random.random():
-                print("wyjatek")
+            if math.exp(-(funkcja(x) - funkcja(x2)) / (0.1 * T)) > random.random():
                 x = x2
         T = T * a
 
     return x
 
 
-x = symulowane_wyzarzanie()
+choice = int(input("Choose function (1 for f3, 2 for f4): "))
+min_val = float(input("Enter the lower bound: "))
+max_val = float(input("Enter the upper bound: "))
+T = float(input("Enter the starting temperature: "))
+a = float(input("Enter the step size: "))
+M = int(input("Enter the number of iterations: "))
 
-print(x)
-print(f3(x))
+if choice == 1:
+    x = simulated_annealing(f3, min_val, max_val, T, a, M)
+else:
+    x = simulated_annealing(f4, min_val, max_val, T, a, M)
+
+print(f'Optimal x: {x}')
+print(f'Function value at x: {f3(x) if choice == 1 else f4(x)}')
