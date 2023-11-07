@@ -25,7 +25,7 @@ def f4(x):
 
 def simulated_annealing(funkcja, min_val, max_val, T, a, M):
     x = random.uniform(min_val, max_val)
-    for j in range(M):  # 3 attempts
+    for j in range(M):
         x2 = random_value(x, min_val, max_val, T)
 
         if funkcja(x2) > funkcja(x):
@@ -42,7 +42,7 @@ choice = int(input("Choose function (1 for f3, 2 for f4): "))
 min_val = float(input("Enter the lower bound: "))
 max_val = float(input("Enter the upper bound: "))
 T = float(input("Enter the starting temperature: "))
-a = float(input("Enter the step size: "))
+a = float(input("Enter the cooling parameter: "))
 M = int(input("Enter the number of iterations: "))
 
 if choice == 1:
