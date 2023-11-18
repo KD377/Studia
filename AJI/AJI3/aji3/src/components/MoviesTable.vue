@@ -18,31 +18,37 @@
           </tr>
         </tbody>
       </table>
-      <button @click="showMore" v-if="displayedMovies.length < moviesData.length">Pokaż więcej</button>
+      <button @click="showMore" v-if="this.currentIndex + this.itemsPerPage < this.filteredMovies.length">Pokaż wiecej</button>
     </div>
   </template>
   
   <script>
-  import moviesData from '../assets/movies.json';
+  import { useMoviesStore } from '@/stores/store';
   
   export default {
     name: 'MoviesTableVue',
     data() {
       return {
-        moviesData,
-        displayedMovies: [],
         itemsPerPage: 10,
-        currentIndex: 0
-      };
+        currentIndex: 0,
+      }
     },
-    mounted() {
-      this.showMore();
+    computed: {
+      moviesStore() {
+        return useMoviesStore();
+      },
+      filteredMovies() {
+        return this.moviesStore.filteredMovies;
+      },
+      displayedMovies() {
+        const nextIndex = this.currentIndex + this.itemsPerPage;
+        return this.filteredMovies.slice(0, nextIndex)
+
+      },
     },
     methods: {
       showMore() {
-        const nextIndex = this.currentIndex + this.itemsPerPage;
-        this.displayedMovies = this.moviesData.slice(0, nextIndex);
-        this.currentIndex = nextIndex;
+        this.currentIndex = this.currentIndex + 10;
       }
     }
   };
