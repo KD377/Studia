@@ -13,8 +13,8 @@
           <tr v-for="(movie, index) in displayedMovies" :key="index">
             <td>{{ movie.title }}</td>
             <td>{{ movie.year }}</td>
-            <td>{{ movie.cast }}</td>
-            <td>{{ movie.genres }}</td>
+            <td>{{ deleteBrackets(movie.cast) }}</td>
+            <td>{{  deleteBrackets(movie.genres) }}</td>
           </tr>
         </tbody>
       </table>
@@ -49,6 +49,9 @@
     methods: {
       showMore() {
         this.currentIndex = this.currentIndex + 10;
+      },
+      deleteBrackets(kategory) {
+        return kategory.map(item => item.replace(/^\[|\]$/g, '')).join(', ');
       }
     }
   };
