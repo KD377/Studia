@@ -1,8 +1,8 @@
 <template>
-  <SearchVue/>
-  <MoviesTableVue/>
-  <ByGenreVue/>
-  <ByCastVue/>
+    <SearchVue />
+    <MoviesTableVue />
+    <ByGenreVue />
+    <ByCastVue />
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
     MoviesTableVue,
     ByGenreVue,
     ByCastVue,
-}
+  }
 }
 </script>
 

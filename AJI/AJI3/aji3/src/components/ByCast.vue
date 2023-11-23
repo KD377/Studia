@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Filmy wg obsady</h1>
         <template v-if="!isSorting">
-            <button @click="toggleSorting">Sortuj A-Z</button>
+            <button @click="toggleSorting" class="btn btn-primary">Sortuj A-Z</button>
         </template>
         <template v-else>
-            <button @click="toggleSorting">Wyłącz sortowanie</button>
+            <button @click="toggleSorting" class="btn btn-secondary">Wyłącz sortowanie</button>
         </template>
 
 

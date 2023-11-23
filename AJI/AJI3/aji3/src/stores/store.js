@@ -21,15 +21,15 @@ export const useMoviesStore = defineStore('movies', {
         );
       }
 
-      if(fromYear){
+      if (fromYear) {
         filtered = _.filter(filtered, movie =>
-            movie.year >= fromYear
-            );
+          movie.year >= fromYear
+        );
       }
 
-      if ( toYear) {
+      if (toYear) {
         filtered = _.filter(filtered, movie =>
-           movie.year <= toYear
+          movie.year <= toYear
         );
       }
 

@@ -3,6 +3,8 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useMoviesStore } from '@/stores/store' // Import the store
 import moviesData from './assets/movies.json' // Import your movies data
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const pinia = createPinia()
 const app = createApp(App)
