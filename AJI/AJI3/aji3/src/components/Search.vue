@@ -28,6 +28,7 @@
                 </div>
             </div>
         </form>
+        <h4 v-if="filteredItems > 0">Znalezione wyniki: {{ filteredItems }}</h4>
     </div>
 </template>
 
@@ -43,7 +44,7 @@ export default {
         toYearInput: '',
         castInput: '',
         filteredMovies: [],
-
+        filteredItems: 0,
        } 
 
     },
@@ -59,6 +60,13 @@ export default {
 
       // Update the component's data property with filtered movies
       this.filteredMovies = moviesStore.filteredMovies;
+      if (title == '' && fromYear == '' && toYear == '' && cast == '' )
+      {
+        this.filteredItems = 0;
+      }else
+      {
+        this.filteredItems = moviesStore.filteredItems;
+      }
     }
     }
 }

@@ -5,6 +5,7 @@ export const useMoviesStore = defineStore('movies', {
   state: () => ({
     moviesData: [],
     filteredMovies: [],
+    filteredItems: 0,
   }),
   actions: {
     setMoviesData(data) {
@@ -39,6 +40,7 @@ export const useMoviesStore = defineStore('movies', {
       }
 
       this.filteredMovies = filtered;
+      this.filteredItems = filtered.length;
     },
   },
 });
