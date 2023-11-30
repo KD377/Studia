@@ -1,7 +1,36 @@
+import random
 import item
 import genetic_alg
+import matplotlib.pyplot as plt
+import numpy as np
 
-genetic_alg = genetic_alg.genetic_alg(6404180)
+def run_multiple_trials_crossover_method(items, population_size, number_of_generations, mutation_rate, crossover_rate, selection_method, crossover_methods, num_trials):
+    results = {method: [] for method in crossover_methods}
+
+    for crossover_method in crossover_methods:
+        avg_solution_values = []
+
+        for _ in range(num_trials):
+            genetic_alg_instance = genetic_alg.genetic_alg(6404180)
+            best = genetic_alg_instance.run_algorithm(items, population_size, number_of_generations, mutation_rate, crossover_rate, selection_method, crossover_method)
+
+            if len(best) != len(items):
+                raise ValueError("Length mismatch between 'best' and 'items'.")
+
+            solution = [items[i] for i in range(len(items)) if best[i] == 1]
+            solution_value = sum(item.value for item in solution)
+            avg_solution_values.append(solution_value)
+
+        results[crossover_method] = avg_solution_values
+
+    return results
+
+def plot_results_crossover_method(crossover_methods, results, title):
+    plt.boxplot(list(results.values()), labels=list(map(str, crossover_methods)))
+    plt.title(title)
+    plt.xlabel('Crossover Method')
+    plt.ylabel('Average Solution Value')
+    plt.show()
 
 items_data = [
     (1, "Toporek", 32252, 68674),
@@ -38,23 +67,12 @@ number_of_generations = 100
 mutation_rate = 0.1
 crossover_rate = 0.8
 
-best = genetic_alg.run_algorithm(items, population_size, number_of_generations,mutation_rate,crossover_rate,'t',1)
-if len(best) != len(items):
-    raise ValueError("Length mismatch between 'best' and 'items'.")
-
-solution = []
-for i in range(len(items)):
-    if best[i] == 1:
-        solution.append(items[i])
-
-solution_weight = sum(item.weight for item in solution)
-solution_value = sum(item.value for item in solution)
-
-print("Selected items:")
-for item in solution:
-    print(f"{item.name} - Weight: {item.weight} kg, Value: {item.value} zł")
+num_trials = 40
+crossover_methods = [1, 2]
 
 
-print("Total weight= " + str(solution_weight))
-print("Total value= " + str(solution_value))
+results_crossover_method = run_multiple_trials_crossover_method(items, population_size, number_of_generations, mutation_rate, crossover_rate, 't', crossover_methods, num_trials)
+
+
+plot_results_crossover_method(crossover_methods, results_crossover_method, 'Impact of Crossover Method on Genetic Algorithm')
 
