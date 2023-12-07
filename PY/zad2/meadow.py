@@ -50,7 +50,7 @@ class Meadow:
             self.write_data_to_json(round_number + 1)
             self.write_data_to_csv(round_number + 1, number_of_alive_sheeps)
             if number_of_alive_sheeps == 0:
-                print("Wszystkie owce zostały zjedzone. Symulacja kończy się.")
+                print("All sheeps have been eaten")
                 break
             else:
                 print("Round: " + str(round_number + 1))

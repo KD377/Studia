@@ -4,8 +4,8 @@ import random
 class Sheep:
     def __init__(self, starting_bound):
         self.movement_distance = 0.5
-        self.x = random.uniform(-starting_bound,starting_bound)
-        self.y = random.uniform(-starting_bound,starting_bound)
+        self.x = random.uniform(-starting_bound, starting_bound)
+        self.y = random.uniform(-starting_bound, starting_bound)
         self.alive = True
 
     def move(self):
