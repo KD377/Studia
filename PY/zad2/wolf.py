@@ -2,8 +2,8 @@ import math
 
 
 class Wolf:
-    def __init__(self):
-        self.movement_distance = 1.0
+    def __init__(self, movement_distance):
+        self.movement_distance = movement_distance
         self.x = 0.0
         self.y = 0.0
 
@@ -25,8 +25,8 @@ class Wolf:
             direction_y = (closest_sheep.y - self.y) / distance_to_closest_sheep
 
             if abs(direction_x) > abs(direction_y):
-                self.x += math.copysign(1, direction_x)
+                self.x += math.copysign(self.movement_distance, direction_x)
             else:
-                self.y += math.copysign(1, direction_y)
+                self.y += math.copysign(self.movement_distance, direction_y)
             return "The wolf is chasing sheep: " + str(sheep_number)
 

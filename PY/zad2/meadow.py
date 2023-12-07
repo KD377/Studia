@@ -5,20 +5,22 @@ import csv
 
 
 class Meadow:
-    def __init__(self, number_of_sheeps, number_of_rounds, bound):
+    def __init__(self, number_of_sheeps, number_of_rounds, bound=10.0, sheep_movement=0.5, wolf_movement=1.0):
         self.starting_bound = bound
         self.number_of_rounds = number_of_rounds
         self.number_of_sheeps = number_of_sheeps
+        self.sheep_movement = sheep_movement
+        self.wolf_movement = wolf_movement
         self.herd_of_sheeps = []
         self.alive_sheeps = []
         self.json_buffer = []
         self.csv_buffer = []
         for i in range(self.number_of_sheeps):
-            sheep_instance = sheep.Sheep(self.starting_bound)
+            sheep_instance = sheep.Sheep(self.starting_bound, self.sheep_movement)
             self.herd_of_sheeps.append(sheep_instance)
             self.alive_sheeps.append(sheep_instance)
 
-        self.wolf = wolf.Wolf()
+        self.wolf = wolf.Wolf(self.wolf_movement)
 
     def write_data_to_json(self, round_number):
         round_data = {
