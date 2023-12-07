@@ -24,7 +24,8 @@ class Meadow:
         round_data = {
             'round_no': round_number,
             'wolf_pos': (self.wolf.x, self.wolf.y),
-            'sheep_pos': [(sheep.x, sheep.y) if sheep.alive else None for sheep in self.herd_of_sheeps]
+            'sheep_pos': [(sheep_instance.x, sheep_instance.y) if sheep_instance.alive
+                          else None for sheep_instance in self.herd_of_sheeps]
         }
 
         self.json_buffer.append(round_data)
@@ -47,7 +48,7 @@ class Meadow:
                     number_of_alive_sheeps += 1
 
             self.write_data_to_json(round_number + 1)
-            self.write_data_to_csv(round_number,number_of_alive_sheeps)
+            self.write_data_to_csv(round_number + 1, number_of_alive_sheeps)
             if number_of_alive_sheeps == 0:
                 print("Wszystkie owce zostały zjedzone. Symulacja kończy się.")
                 break
@@ -56,8 +57,10 @@ class Meadow:
                 print(wolf_info)
                 print("Wolf coordinates=(" + str(round(self.wolf.x, 3)) + ", " + str(round(self.wolf.y, 3)) + ")")
                 print("Number of alive sheeps: " + str(number_of_alive_sheeps))
+
         with open('pos.json', 'w') as file:
             json.dump(self.json_buffer, file, indent=2)
+
         headers = ['round_number', 'number_of_alive_sheeps']
         with open('alive.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=headers)
