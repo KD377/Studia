@@ -30,7 +30,7 @@ def main(config_file=None):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Running the program with an optional config file')
+    parser = argparse.ArgumentParser(description='Simulation of wolf chasing sheeps')
     parser.add_argument('-c', '--config', help='Path to the configuration file', required=False)
     args = parser.parse_args()
 
