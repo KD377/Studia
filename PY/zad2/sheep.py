@@ -19,3 +19,4 @@ class Sheep:
             self.x += self.movement_distance
         elif direction == 'west':
             self.x -= self.movement_distance
+        return direction
