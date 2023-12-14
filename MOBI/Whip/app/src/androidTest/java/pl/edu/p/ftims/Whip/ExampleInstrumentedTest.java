@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("pl.edu.p.ftims.wspanialaapkacz1215", appContext.getPackageName());
+        assertEquals("pl.edu.p.ftims.whip", appContext.getPackageName());
     }
 }
