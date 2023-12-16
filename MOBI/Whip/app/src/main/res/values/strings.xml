@@ -10,4 +10,13 @@
     <string name="click_to_register">Click to register</string>
     <string name="hello">hello</string>
     <string name="logout">Logout</string>
+    <string name="dodaj_ogloszenie">Dodaj ogłoszenie</string>
+    <string name="car_brand">Car_brand</string>
+    <string name="car_model">car_model</string>
+    <string name="save">Save</string>
+    <string name="car_brand1">Car brand</string>
+    <string name="car_model1">Car model</string>
+    <string name="engine_size">Engine size</string>
+    <string name="power">Power</string>
+    <string name="mileage">Mileage</string>
 </resources>

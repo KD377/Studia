@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddAnnouncement">
+
+    <EditText
+        android:id="@+id/edit_text_car_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/car_brand1"
+        android:inputType="text"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/edit_text_car_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_car_brand"
+        android:hint="@string/car_model1"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/edit_text_engine_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_car_model"
+        android:hint="@string/engine_size"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/edit_text_power"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_engine_size"
+        android:hint="@string/power"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/edit_text_mileage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_power"
+        android:hint="@string/mileage"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textAlignment="center"/>
+
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="116dp"
+        android:layout_height="63dp"
+        android:layout_below="@id/edit_text_mileage"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save"
+        android:textSize="20sp"/>
+
+</RelativeLayout>
