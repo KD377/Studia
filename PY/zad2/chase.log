@@ -1,0 +1,252 @@
+INFO - Initial positions of all sheep are determined
+INFO - Round number: 1 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 1
+INFO - Number of alive sheep: 15
+INFO - Round number: 2 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 1
+INFO - Number of alive sheep: 15
+INFO - Round number: 3 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 1
+INFO - Number of alive sheep: 14
+INFO - Round number: 4 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 6
+INFO - Number of alive sheep: 14
+INFO - Round number: 5 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 6
+INFO - Number of alive sheep: 14
+INFO - Round number: 6 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 6
+INFO - Number of alive sheep: 13
+INFO - Round number: 7 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 15
+INFO - Number of alive sheep: 13
+INFO - Round number: 8 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 15
+INFO - Number of alive sheep: 13
+INFO - Round number: 9 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 15
+INFO - Number of alive sheep: 13
+INFO - Round number: 10 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 15
+INFO - Number of alive sheep: 13
+INFO - Round number: 11 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 15
+INFO - Number of alive sheep: 12
+INFO - Round number: 12 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 3
+INFO - Number of alive sheep: 12
+INFO - Round number: 13 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 3
+INFO - Number of alive sheep: 12
+INFO - Round number: 14 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 3
+INFO - Number of alive sheep: 11
+INFO - Round number: 15 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 5
+INFO - Number of alive sheep: 11
+INFO - Round number: 16 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 5
+INFO - Number of alive sheep: 11
+INFO - Round number: 17 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 11
+INFO - Round number: 18 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 11
+INFO - Round number: 19 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 11
+INFO - Round number: 20 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 11
+INFO - Round number: 21 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 11
+INFO - Round number: 22 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 12
+INFO - Number of alive sheep: 11
+INFO - Round number: 23 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 12
+INFO - Number of alive sheep: 11
+INFO - Round number: 24 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 12
+INFO - Number of alive sheep: 11
+INFO - Round number: 25 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 12
+INFO - Number of alive sheep: 10
+INFO - Round number: 26 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 10
+INFO - Round number: 27 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 10
+INFO - Round number: 28 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 10
+INFO - Round number: 29 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 10
+INFO - Round number: 30 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 11
+INFO - Number of alive sheep: 10
+INFO - Round number: 31 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 11
+INFO - Number of alive sheep: 9
+INFO - Round number: 32 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 5
+INFO - Number of alive sheep: 9
+INFO - Round number: 33 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 5
+INFO - Number of alive sheep: 8
+INFO - Round number: 34 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 8
+INFO - Number of alive sheep: 8
+INFO - Round number: 35 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 8
+INFO - Number of alive sheep: 7
+INFO - Round number: 36 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 2
+INFO - Number of alive sheep: 7
+INFO - Round number: 37 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 2
+INFO - Number of alive sheep: 7
+INFO - Round number: 38 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 14
+INFO - Number of alive sheep: 7
+INFO - Round number: 39 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 14
+INFO - Number of alive sheep: 7
+INFO - Round number: 40 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 14
+INFO - Number of alive sheep: 6
+INFO - Round number: 41 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 2
+INFO - Number of alive sheep: 6
+INFO - Round number: 42 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 2
+INFO - Number of alive sheep: 5
+INFO - Round number: 43 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 10
+INFO - Number of alive sheep: 5
+INFO - Round number: 44 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 10
+INFO - Number of alive sheep: 5
+INFO - Round number: 45 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 10
+INFO - Number of alive sheep: 5
+INFO - Round number: 46 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 10
+INFO - Number of alive sheep: 5
+INFO - Round number: 47 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf ate sheep no: 10
+INFO - Number of alive sheep: 4
+INFO - Round number: 48 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 7
+INFO - Number of alive sheep: 4
+INFO - Round number: 49 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 7
+INFO - Number of alive sheep: 4
+INFO - Round number: 50 started
+INFO - All live sheep moved
+INFO - The wolf moved
+INFO - The wolf is chasing sheep no: 7
+INFO - Number of alive sheep: 4
+INFO - End of simulation - a predetermined maximum number of rounds has been reached
