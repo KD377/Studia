@@ -50,4 +50,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddAnnouncement.class); // AddAdActivity to nazwa kolejnej aktywności
         startActivity(intent);
     }
+
+    public void goToMyAnnouncments(View view) {
+        Intent intent = new Intent(this,MyAnnouncements.class);
+        startActivity(intent);
+    }
 }

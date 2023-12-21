@@ -29,10 +29,23 @@
         android:id="@+id/add_announcement_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dodaj_ogloszenie"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/user_details"
-        android:layout_marginTop="32dp"
-        android:onClick="goToAddAnnouncement" /> <!-- Dodany przycisk -->
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:onClick="goToAddAnnouncement"
+        android:text="@string/dodaj_ogloszenie" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="23dp"
+        android:text="@string/moje_ogloszenia"
+        android:onClick="goToMyAnnouncments"/>
+
+    <!-- Dodany przycisk -->
 
 </RelativeLayout>

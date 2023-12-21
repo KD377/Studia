@@ -19,4 +19,6 @@
     <string name="engine_size">Engine size</string>
     <string name="power">Power</string>
     <string name="mileage">Mileage</string>
+    <string name="moje_ogloszenia">Moje ogloszenia</string>
+    <string name="my_announcements">My announcements</string>
 </resources>
