@@ -1,0 +1,10 @@
+**/venv
+**/.DS_Store
+**/encoded.txt
+**/.idea
+**/cmake-build-debug
+**/final.txt
+**/target/
+**/__pycache__
+Kryptografia/AES/src/main/resources/target/
+

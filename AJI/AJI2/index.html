@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <link rel="stylesheet" type="text/css" href="./css/main.css">
+  
+   <title>MyTODO App</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Bootstrap demo</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;500;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+   <div class="container-fluid no-gutters text-white">
+      <div class="row">
+         <div class="col-12 text-center my-5">
+            <h1>My To Do App</h1>
+         </div>  
+      </div>
+      <div class="container align-content-center">
+         <div class="row">
+            <form class="col-md-6">
+               <div class="form-group">
+                  <label>Title</label>
+                  <input class="form-control my-2" type="text" id="inputTitle" />
+                  <label>Description</label>
+                  <input class="form-control my-2" type="text" id="inputDescription" />
+                  <label>Place</label>
+                  <input class="form-control my-2" type="text" id="inputPlace" />
+                  <label>Due date</label>
+                  <input class="form-control my-2" type="date" id="inputDate" />
+                  <div class="text-center">
+                     <input class=" col-4 btn btn-primary my-5" type="button" value="Add" onclick="addTodo()" />
+                  </div>
+                  
+               </div>   
+            </form>
+               <div class="form-group col-md-6 ">
+                  <div class="row">
+                     <label>Search</label>
+                     <input class="my-2 form-control" type="text" id="inputSearch" placeholder="Type Your seach here..." />
+                  </div> 
+                  <div class="row border border-primary mt-4 p-4">
+                     <div class="col-6">
+                        <label>From</label>
+                        <input class="my-2 form-control" type="date" id="inputDateFrom"/> 
+                        <label>To</label>
+                        <input class="my-2 form-control" type="date" id="inputDateTo"/> 
+                     </div>
+                     <div class="col-6 d-flex justify-content-center">
+                        <input class=" col-5 btn btn-primary mx-auto my-auto" type="button" value="Filter" onclick="sort()" />
+                        <input class=" col-5 btn btn-primary mx-auto my-auto" type="button" value="Clear" onclick="reset()" />
+                     </div>
+                  </div>
+                  
+                  
+               </div>
+            
+         </div>
+         
+         
+      </div>
+
+      <div class="container my-5" id="tableContainer">
+         <div class="row" id="todoListView">
+            <div class="col-12 shadow rounded p-5">
+               <table class="table table-striped text-center">
+               <thead>
+                  <tr>
+                     <th class="bg-secondary">Title</th>
+                     <th class="bg-secondary">Description</th>
+                     <th class="bg-secondary">Place</th>
+                     <th class="bg-secondary">Due date</th>
+                     <th class="bg-secondary"></th>
+                     </tr>
+                  </thead>
+                  <tbody id="todoListTable">
+                  </tbody>
+               </table>
+            </div>
+            <div  id="buttonContainer"></div>
+            
+         </div>
+         
+      </div>
+      <div class="col-12 no-gutters bg-dark" style="min-height: 10vh;">
+         
+      </div>
+      
+   </div>
+   
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="scripts-2.js"></script>
+   <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+</html>

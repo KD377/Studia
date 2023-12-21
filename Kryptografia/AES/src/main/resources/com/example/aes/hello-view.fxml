@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aes.HelloController">
+   <children>
+      <TextField fx:id="keyField" alignment="CENTER" layoutX="310.0" layoutY="168.0" prefHeight="42.0" prefWidth="725.0" promptText="Enter key (32 char) or click generate">
+         <font>
+            <Font size="23.0" />
+         </font></TextField>
+      <Label fx:id="title" alignment="CENTER" layoutX="197.0" layoutY="39.0" prefHeight="71.0" prefWidth="951.0" text="AES cyphering application by KD &amp; JO" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="49.0" />
+         </font>
+      </Label>
+      <Button fx:id="generateButton" layoutX="562.0" layoutY="236.0" mnemonicParsing="false" onAction="#onGenerateButtonClick" prefHeight="65.0" prefWidth="220.0" text="Generate Key">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="fileSwitch" layoutX="574.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleFileSwitch" prefHeight="38.0" prefWidth="198.0" text="From file ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="inputSwitch" layoutX="573.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleInputSwitch" prefHeight="38.0" prefWidth="198.0" text="From text input">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="decodeButton" layoutX="565.0" layoutY="643.0" mnemonicParsing="false" onAction="#handleDecodeButton" prefHeight="44.0" prefWidth="214.0" text="Decode">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <Button fx:id="encodeButton" layoutX="565.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleEncodeButton" prefHeight="38.0" prefWidth="214.0" text="Encode">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <Label fx:id="inputLabel" alignment="CENTER" layoutX="838.0" layoutY="543.0" textFill="RED">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="encodeInput" layoutX="35.0" layoutY="410.0" prefHeight="288.0" prefWidth="497.0" wrapText="true">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="decodeInput" layoutX="814.0" layoutY="410.0" prefHeight="288.0" prefWidth="497.0" wrapText="true">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="uploadFileButton" layoutX="374.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="65.0" prefWidth="157.0" text="Upload file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="uploadFileText" layoutX="35.0" layoutY="234.0" prefHeight="42.0" prefWidth="317.0" promptText="Enter file URL to encode">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="uploadFileButtonDec" accessibleRoleDescription="d" layoutX="1124.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleUploadButtonClickDec" prefHeight="65.0" prefWidth="157.0" text="Upload file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="uploadFileTextDec" layoutX="814.0" layoutY="232.0" prefHeight="74.0" prefWidth="299.0" promptText="Enter file URL to decode">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="saveFileButton" layoutX="374.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="65.0" prefWidth="157.0" text="Save file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveFileButtonDec" layoutX="1124.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleSaveButtonDec" prefHeight="65.0" prefWidth="157.0" text="Save file">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveKey" layoutX="1063.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleSaveKey" prefHeight="42.0" prefWidth="157.0" text="Save key">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="uploadKey" layoutX="127.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleUploadKey" prefHeight="42.0" prefWidth="157.0" text="Upload key">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
