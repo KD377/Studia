@@ -39,7 +39,7 @@ public class MyAnnouncements extends AppCompatActivity {
 
         FirebaseUser currentUser = auth.getCurrentUser();
 
-        if (currentUser != null) {
+        if (currentUser !=null) {
             // Query Firestore to get announcements for the current user
             db.collection("Announcements")
                     .whereEqualTo("userId", currentUser.getUid())
