@@ -6,46 +6,185 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/user_details"
-        android:layout_width="wrap_content"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:text="@string/hello"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="193dp"
+        android:text="@string/hello"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/logout"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
+        android:text="@string/logout" />
 
-    <Button
-        android:id="@+id/add_announcement_button"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/brand_input"
+        android:layout_width="374dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_details"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:onClick="goToAddAnnouncement"
-        android:text="@string/dodaj_ogloszenie" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="21dp"
+        android:hint="@string/brand"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/model_input"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/brand_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="17dp"
+        android:hint="@string/model"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/min_engine_size"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/model_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="215dp"
+        android:hint="@string/min_engine_size"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/max_engine_size"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/min_engine_size"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-47dp"
+        android:layout_marginEnd="18dp"
+        android:hint="@string/max_engine_size"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/min_power"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/min_engine_size"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:hint="@string/min_power"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/max_power"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/min_power"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-45dp"
+        android:layout_marginEnd="210dp"
+        android:hint="@string/max_power"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/min_mileage_input"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/max_power"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:hint="@string/min_mileage"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/max_mileage_input"
+        android:layout_width="377dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/min_mileage_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="18dp"
+        android:hint="@string/max_mileage"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/min_price"
+        android:layout_width="377dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/max_mileage_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
+        android:hint="@string/min_price"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
+
+    <EditText
+        android:id="@+id/max_price"
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/min_price"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="15dp"
+        android:hint="@string/max_price"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/search_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@id/max_price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/search" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="23dp"
-        android:text="@string/moje_ogloszenia"
-        android:onClick="goToMyAnnouncments"/>
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-    <!-- Dodany przycisk -->
 
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:onClick="goToMyAnnouncments"
+            android:text="@string/moje_ogloszenia" />
+
+
+        <Button
+            android:id="@+id/add_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:onClick="goToAddAnnouncement"
+            android:text="@string/dodaj_ogloszenie" />
+    </LinearLayout>
 </RelativeLayout>

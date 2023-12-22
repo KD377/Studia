@@ -61,6 +61,7 @@ public class AddAnnouncement extends AppCompatActivity {
                         .add(announcement)
                         .addOnSuccessListener(documentReference -> {
                             Toast.makeText(AddAnnouncement.this, "Announcement added to Firebase!", Toast.LENGTH_SHORT).show();
+                            setResult(RESULT_OK);
                             finish();
                         })
                         .addOnFailureListener(e -> {

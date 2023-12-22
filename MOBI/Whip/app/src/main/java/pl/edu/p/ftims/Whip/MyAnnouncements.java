@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -186,8 +188,16 @@ public class MyAnnouncements extends AppCompatActivity {
                 });
     }
 
+    private ActivityResultLauncher<Intent> addAnnouncementLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    reloadAnnouncements(); // Refresh the announcements
+                }
+            }
+    );
     public void addAnnouncement(View view) {
         Intent intent = new Intent(this, AddAnnouncement.class); // AddAdActivity to nazwa kolejnej aktywności
-        startActivity(intent);
+        addAnnouncementLauncher.launch(intent);
     }
 }
