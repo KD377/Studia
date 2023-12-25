@@ -5,5 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchResults">
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/results"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/tilesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info"
+        app:layout_constraintVertical_bias="0.009" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="221dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/clear_results"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="clearResults"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

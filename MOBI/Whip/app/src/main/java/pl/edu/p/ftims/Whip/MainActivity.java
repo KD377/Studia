@@ -70,9 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] keys = {"brand", "model", "minMileage", "maxMileage", "minPrice", "maxPrice", "minEngine", "maxEngine", "minPower", "maxPower"};
 
                 for (int i = 0; i < fields.length; i++) {
-                    if (!fields[i].isEmpty()) {
-                        intent.putExtra(keys[i], fields[i]);
-                    }
+                    intent.putExtra(keys[i], fields[i]);
                 }
 
                 startActivity(intent);

@@ -35,4 +35,6 @@
     <string name="min_price">Min price</string>
     <string name="max_price">Max price</string>
     <string name="search">Search</string>
+    <string name="clear_results">Clear results</string>
+    <string name="results">Results</string>
 </resources>
