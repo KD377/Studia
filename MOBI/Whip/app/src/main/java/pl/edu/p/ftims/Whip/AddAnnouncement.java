@@ -51,10 +51,14 @@ public class AddAnnouncement extends AppCompatActivity {
                 Map<String, Object> announcement = new HashMap<>();
                 announcement.put("carBrand", carBrand);
                 announcement.put("carModel", carModel);
-                announcement.put("engineSize", engineSize);
-                announcement.put("power", power);
-                announcement.put("mileage", mileage);
-                announcement.put("price", price);
+                double engineSizeValue = Double.parseDouble(engineSize);
+                double powerValue = Double.parseDouble(power);
+                int mileageValue = Integer.parseInt(mileage);
+                double priceValue = Double.parseDouble(price);
+                announcement.put("engineSize", engineSizeValue);
+                announcement.put("power", powerValue);
+                announcement.put("mileage", mileageValue);
+                announcement.put("price", priceValue);
                 announcement.put("userId", currentUser.getUid());
 
                 db.collection("Announcements")

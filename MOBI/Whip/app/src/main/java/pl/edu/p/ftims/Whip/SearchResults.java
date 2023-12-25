@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,9 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 
 
 public class SearchResults extends AppCompatActivity {
@@ -47,7 +45,6 @@ public class SearchResults extends AppCompatActivity {
         String maxPower = intent.getStringExtra("maxPower");
 
         Query query = firestore.collection("Announcements");
-
         if (!brand.isEmpty()) {
             query = query.whereEqualTo("carBrand", brand);
         }
@@ -93,10 +90,10 @@ public class SearchResults extends AppCompatActivity {
 
                         String carBrand = document.getString("carBrand");
                         String carModel = document.getString("carModel");
-                        String engineSize = document.getString("engineSize");
-                        String mileage = document.getString("mileage");
-                        String power = document.getString("power");
-                        String price = document.getString("price");
+                        Double engineSize = document.getDouble("engineSize");
+                        Long mileage = document.getLong("mileage");
+                        Double power = document.getDouble("power");
+                        Double price = document.getDouble("price");
 
                         carBrandTextView.setText(carBrand);
                         carModelTextView.setText(carModel);

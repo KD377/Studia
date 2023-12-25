@@ -66,17 +66,17 @@ public class MyAnnouncements extends AppCompatActivity {
                                         TextView mileageTextView = tileView.findViewById(R.id.mileage);
                                         TextView powerTextView = tileView.findViewById(R.id.power);
                                         TextView priceTextView = tileView.findViewById(R.id.price);
-                                        Button deleteButton = tileView.findViewById(R.id.delete_button); // Add delete button
+                                        Button deleteButton = tileView.findViewById(R.id.delete_button);
 
                                         String documentId = document.getId();
 
 
                                         String carBrand = document.getString("carBrand");
                                         String carModel = document.getString("carModel");
-                                        String engineSize = document.getString("engineSize");
-                                        String mileage = document.getString("mileage");
-                                        String power = document.getString("power");
-                                        String price = document.getString("price");
+                                        Double engineSize = document.getDouble("engineSize");
+                                        Long mileage = document.getLong("mileage");
+                                        Double power = document.getDouble("power");
+                                        Double price = document.getDouble("price");
 
                                         carBrandTextView.setText(carBrand);
                                         carModelTextView.setText(carModel);
@@ -143,13 +143,13 @@ public class MyAnnouncements extends AppCompatActivity {
 
                                 String documentId = document.getId();
 
-                                // Set text values
+
                                 String carBrand = document.getString("carBrand");
                                 String carModel = document.getString("carModel");
-                                String engineSize = document.getString("engineSize");
-                                String mileage = document.getString("mileage");
-                                String power = document.getString("power");
-                                String price = document.getString("price");
+                                Double engineSize = document.getDouble("engineSize");
+                                Long mileage = document.getLong("mileage");
+                                Double power = document.getDouble("power");
+                                Double price = document.getDouble("price");
 
                                 carBrandTextView.setText(carBrand);
                                 carModelTextView.setText(carModel);

@@ -34,12 +34,12 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="221dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
+        android:onClick="addAnnouncement"
         android:text="@string/add_announcement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="addAnnouncement"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

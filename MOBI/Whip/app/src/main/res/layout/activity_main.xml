@@ -82,19 +82,19 @@
         android:layout_below="@id/min_engine_size"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="214dp"
         android:hint="@string/min_power"
         android:inputType="number"
         android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/max_power"
-        android:layout_width="187dp"
+        android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/min_power"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="-45dp"
-        android:layout_marginEnd="210dp"
+        android:layout_marginTop="-49dp"
+        android:layout_marginEnd="18dp"
         android:hint="@string/max_power"
         android:inputType="number"
         android:minHeight="48dp" />
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/max_power"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="18dp"
         android:hint="@string/min_mileage"
         android:inputType="number"
