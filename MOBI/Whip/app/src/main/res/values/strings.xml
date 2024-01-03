@@ -19,4 +19,22 @@
     <string name="engine_size">Engine size</string>
     <string name="power">Power</string>
     <string name="mileage">Mileage</string>
+    <string name="moje_ogloszenia">Moje ogloszenia</string>
+    <string name="my_announcements">My announcements</string>
+    <string name="delete">Delete</string>
+    <string name="price">Price</string>
+    <string name="add_announcement">Add announcement</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
+    <string name="min_engine_size">Min engine size</string>
+    <string name="max_engine_size">Max engine size</string>
+    <string name="min_power">Min power</string>
+    <string name="max_power">Max power</string>
+    <string name="min_mileage">Min Mileage</string>
+    <string name="max_mileage">Max Mileage</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="search">Search</string>
+    <string name="clear_results">Clear results</string>
+    <string name="results">Results</string>
 </resources>
