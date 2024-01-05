@@ -6,9 +6,9 @@ app.use(express.json());
 
 
 app.use(require('./routes/products'));
-//app.use(require('./categories'));
-//app.use(require('./orders'));
-//app.use(require('./orderStatus'));
+app.use(require('./routes/categories'));
+app.use(require('./routes/orders'));
+app.use(require('./routes/status'));
 
 app.listen(port, () => {
   console.log(`Serwer działa na http://localhost:${port}`);
