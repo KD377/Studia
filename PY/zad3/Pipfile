@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
+sqlalchemy = "*"
+wtforms = "*"
+wtforms-alchemy = "*"
+requests = "*"
 
 [dev-packages]
-

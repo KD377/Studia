@@ -1,12 +1,16 @@
-from django.db import models
+from sqlalchemy import create_engine, Column, Integer, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-# # Create your models here.
-class Table1(models.Model):
-    # Kolumna dla klucza głównego
-    primary_key = models.AutoField(primary_key=True)
-    # Kolumny dla cech ciągłych
-    continuous_feature1 = models.FloatField()
-    continuous_feature2 = models.FloatField()
-    # Kolumna dla cechy kategorycznej
-    categorical_feature = models.IntegerField()
+engine = create_engine('sqlite:///db.sqlite3')
+Session = sessionmaker(bind=engine)
 
+Base = declarative_base()
+
+class Table1(Base):
+    __tablename__ = 'table1'
+
+    id = Column(Integer, primary_key=True)
+    continuous_feature1 = Column(Float)
+    continuous_feature2 = Column(Float)
+    categorical_feature = Column(Integer)

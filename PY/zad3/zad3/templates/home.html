@@ -4,6 +4,7 @@
     <title>Data Points</title>
 </head>
 <body>
+    <h1>Data Points</h1>
     <table border="1">
         <thead>
             <tr>
@@ -22,11 +23,15 @@
                 <td>{{ data_point.continuous_feature2 }}</td>
                 <td>{{ data_point.categorical_feature }}</td>
                 <td>
-                    <form action="{% url 'delete_record' data_point.pk %}" method="post">
+                    <form action="{% url 'delete_record' data_point.id %}" method="post">
                         {% csrf_token %}
                         <input type="submit" value="Delete">
                     </form>
                 </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No data available</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Add new data</title>
-    </head>
-    <body>
-        <h1>Add data</h1>
-        <form action="{% url 'add_data' %}" method="post">
-            {% csrf_token %} 
-            {{form.as_p}}
-            <input type="submit" value="Submit">
-        </form>
-        <a href="{% url 'home' %}"><button>Back</button></a>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Data</title>
+</head>
+<body>
+    <h1>Add Data</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_continuous_feature1">Continuous Feature 1:</label>
+        {{ form.continuous_feature1 }}
+        <label for="id_continuous_feature2">Continuous Feature 2:</label>
+        {{ form.continuous_feature2 }}
+        <label for="id_categorical_feature">Categorical Feature:</label>
+        {{ form.categorical_feature }}
+        <input type="submit" value="Submit">
+    </form>
+    <a href="{% url 'home' %}"><button>Back</button></a>
+</body>
 </html>
