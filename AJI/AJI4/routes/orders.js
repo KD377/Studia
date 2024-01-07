@@ -23,7 +23,7 @@ router.post('/orders', async (req, res) => {
         const { confirm_date, order_status, username, email, phone_number, products, quantities } = req.body;
 
         // Sprawdzenie, czy wszystkie wymagane pola są dostępne
-        if (!confirm_date || !order_status || !username || !email || !phone_number || !products || !quantities) {
+        if (!confirm_date  || !order_status || !username || !email || !phone_number || !products || !quantities) {
             return res.status(400).json({ error: 'Not all required parameters have been passed' });
         }
 
@@ -62,16 +62,15 @@ router.post('/orders', async (req, res) => {
             email,
             phone_number,
         });
-
         for (let i = 0; i < products.length; i++) {
             await db('Product_Order').insert({
                 product_id: productIds[i],
-                order_id: orderId[0],
+                order_id: orderId,
                 quantity: quantities[i],
             });
         }
 
-        res.json({ success: true });
+        res.json({ success: true, order_id: orderId, pieces: productIds.length, status: order_status, username: username, email: email, phone: phone_number });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });

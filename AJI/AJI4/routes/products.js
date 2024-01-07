@@ -6,12 +6,27 @@ const db = require('../database');
 router.get('/products', async (req, res) => {
   try {
     const products = await db.select().from('Product');
-    res.json(products);
+    
+    // Assuming you have a foreign key relationship between Product and Category using `category_id`
+    const productsWithCategory = await Promise.all(products.map(async (product) => {
+      const category = await db('Category').where('id', product.category_id).first();
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        weight: product.weight,
+        category: category ? category.name : null, // Include category name or null if not found
+      };
+    }));
+
+    res.json(productsWithCategory);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 router.get('/products/:id', async (req, res) => {
   const productId = req.params.id;
