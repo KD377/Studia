@@ -70,8 +70,17 @@ def data_api(request):
             categorical_feature = data.get('categorical_feature')
 
             # Perform your validation logic here
-            if continuous_feature1 is None or continuous_feature2 is None or categorical_feature is None:
-                raise ValueError("Incomplete data provided")
+            if(
+            continuous_feature1 is None
+            or continuous_feature2 is None
+            or categorical_feature is None
+            or not continuous_feature1.replace('.', '', 1).isdigit()
+            or not continuous_feature2.replace('.', '', 1).isdigit()
+            or not categorical_feature.replace('-', '', 1).isdigit()
+            or '.' in categorical_feature
+            ):
+                raise ValueError("Invalid data")
+        
 
             # Create a new record in the database using SQLAlchemy
             new_record = Table1(
@@ -81,7 +90,7 @@ def data_api(request):
             )
             session = Session()
             session.add(new_record)
-            session.commit()
+            session.commit() 
 
             # Return the primary key of the newly created record
             return JsonResponse({'id': new_record.id}, status=201)
