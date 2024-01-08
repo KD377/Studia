@@ -1,5 +1,5 @@
 import requests
-BASE_URL = 'http://127.0.0.1:8000/zad3/api/data/'
+BASE_URL = 'http://127.0.0.1:8000/api/data/'
 
 # # GET
 # response = requests.get(BASE_URL)
@@ -11,23 +11,23 @@ BASE_URL = 'http://127.0.0.1:8000/zad3/api/data/'
 #     print("GET /api/data - Failed")
 
 # POST
-new_data = {
-    'continuous_feature1': 1.11,
-    'continuous_feature2': 2.22,
-    'categorical_feature': 3.3
-}
+# new_data = {
+#     'continuous_feature1': 1.11,
+#     'continuous_feature2': 2.22,
+#     'categorical_feature': 3.3
+# }
 
-response = requests.post(BASE_URL, data=new_data)
-if response.status_code == 201:
-    data = response.json()
-    print("POST /api/data - Success")
-    print("New data point ID:", data['id'])
-else:
-    print("POST /api/data - Failed")
+# response = requests.post(BASE_URL, data=new_data)
+# if response.status_code == 201:
+#     data = response.json()
+#     print("POST /api/data - Success")
+#     print("New data point ID:", data['id'])
+# else:
+#     print("POST /api/data - Failed")
 
 
 # # DELETE
-# record_id = 7
+# record_id = 5
 
 # response = requests.delete(f'{BASE_URL}{(record_id)}')
 # if response.status_code == 200:

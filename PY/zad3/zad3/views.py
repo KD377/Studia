@@ -15,7 +15,7 @@ def delete_record(request, record_id):
         record = session.query(Table1).get(record_id)
         session.delete(record)
         session.commit()
-        return redirect('/zad3')
+        return redirect('/')
     else:
         return HttpResponseNotFound('<h1>404 - Not found</h1>')
 
@@ -36,7 +36,7 @@ def add_data(request):
             )
             session.add(new_record)
             session.commit()
-            return redirect('/zad3')
+            return redirect('/')
         else:
             return HttpResponseBadRequest('<h1>400 - Bad request<h1>')
     else:
@@ -101,7 +101,7 @@ def data_api(request):
 
 @csrf_exempt
 def delete_api(request, record_id):
-    try:
+    if request.method == "DELETE":
         session = Session()
         record = session.query(Table1).get(record_id)
         if record:
@@ -110,6 +110,6 @@ def delete_api(request, record_id):
             return JsonResponse({'deleted_record_id': record_id}, status=200)
         else:
             return JsonResponse({'error': 'Record not found'}, status=404)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Server error'}, status=500)
 
