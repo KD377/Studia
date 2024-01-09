@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed
 from .models import Table1, Session
 from .forms import SQLAlchemyForm
 from django.views.decorators.csrf import csrf_exempt
@@ -13,11 +13,14 @@ def delete_record(request, record_id):
     if request.method == 'POST':
         session = Session()
         record = session.query(Table1).get(record_id)
-        session.delete(record)
-        session.commit()
-        return redirect('/')
+        if record:
+            session.delete(record)
+            session.commit()
+            return redirect('/')
+        else:
+            return HttpResponseNotFound('<h1>404 - Not found</h1>')
     else:
-        return HttpResponseNotFound('<h1>404 - Not found</h1>')
+        return HttpResponseNotAllowed('<h1>405 - Method not allowed</h>')
 
 
 def add_data(request):
@@ -62,14 +65,14 @@ def data_api(request):
         return JsonResponse(data_list, safe=False)
     elif request.method == 'POST':
         try:
-            data = request.POST  # Assuming form data is sent
+            data = request.POST  
 
-            # Validate the incoming data
+            
             continuous_feature1 = data.get('continuous_feature1')
             continuous_feature2 = data.get('continuous_feature2')
             categorical_feature = data.get('categorical_feature')
 
-            # Perform your validation logic here
+            
             if(
             continuous_feature1 is None
             or continuous_feature2 is None
@@ -82,7 +85,6 @@ def data_api(request):
                 raise ValueError("Invalid data")
         
 
-            # Create a new record in the database using SQLAlchemy
             new_record = Table1(
                 continuous_feature1=continuous_feature1,
                 continuous_feature2=continuous_feature2,
@@ -92,12 +94,11 @@ def data_api(request):
             session.add(new_record)
             session.commit() 
 
-            # Return the primary key of the newly created record
             return JsonResponse({'id': new_record.id}, status=201)
 
         except ValueError as e:
             return JsonResponse({'error': str(e)}, status=400)
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 @csrf_exempt
 def delete_api(request, record_id):
@@ -111,5 +112,5 @@ def delete_api(request, record_id):
         else:
             return JsonResponse({'error': 'Record not found'}, status=404)
     else:
-        return JsonResponse({'error': 'Server error'}, status=500)
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
