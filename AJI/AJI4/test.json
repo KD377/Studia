@@ -1,9 +1,0 @@
-{
-  "confirm_date": "2024-01-01",
-  "order_status": "NOT_APPROVED",
-  "username": "test",
-  "email": "test@gmail.com",
-  "phone_number": "123456789",
-  "products": ["test", "Telefon"],
-  "quantities": [2, 1]
-}
