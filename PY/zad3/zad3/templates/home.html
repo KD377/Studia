@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Points</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Points</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sequence Number</th>
+                    <th>Continuous Feature 1</th>
+                    <th>Continuous Feature 2</th>
+                    <th>Categorical Feature</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data_point in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ data_point.continuous_feature1 }}</td>
+                    <td>{{ data_point.continuous_feature2 }}</td>
+                    <td>{{ data_point.categorical_feature }}</td>
+                    <td>
+                        <form action="{% url 'delete_record' data_point.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No data available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_data' %}" class="btn btn-primary">Add new data</a>
+    </div>
+</body>
+</html>
+
+
