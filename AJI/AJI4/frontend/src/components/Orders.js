@@ -46,6 +46,7 @@ const ProductTable = () => {
                     <tr>
                         <th>Order ID</th>
                         <th>Confirm Date</th>
+                        <th>Username</th>
                         <th>Total Sum</th>
                     </tr>
                 </thead>
@@ -62,6 +63,7 @@ const ProductTable = () => {
                             <tr key={order.order_id}>
                                 <td>{order.order_id}</td>
                                 <td>{date(order.confirm_date)}</td>
+                                <td>{order.username}</td>
                                 <td>{totalSum.toFixed(2)}</td>
                             </tr>
                         );

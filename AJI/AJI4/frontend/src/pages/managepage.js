@@ -25,13 +25,13 @@ const ManagePage = () => {
             <div>
                 <NavigationBar />
                 <div className='container mt-4'>
-                    <label>Switch Component: </label>
+                    <label>Switch table: </label>
                     <select
                         value={activeComponent}
                         onChange={(e) => setActiveComponent(e.target.value)}
                     >
                         <option value='ManageTable'>Edit products</option>
-                        <option value='UnrealisedOrders'>Unrealised Orders</option>
+                        <option value='UnrealisedOrders'>Uncompleted Orders</option>
                         <option value='Orders'>Orders by status</option>
                     </select>
                 </div>
