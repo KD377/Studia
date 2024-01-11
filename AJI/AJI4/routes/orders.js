@@ -5,12 +5,45 @@ const db = require('../database');
 
 router.get('/orders', async (req, res) => {
     try {
-        const orders = await db.raw(`
-            SELECT id, DATE_FORMAT(confirm_date, '%Y-%m-%d') AS confirm_date, order_status_id, username, email, phone_number
-            FROM \`Order\`
-        `);
+        const orders = await db
+            .select(
+                'Order.id as order_id',
+                'Order.confirm_date',
+                'Order.order_status_id',
+                'Order.username',
+                'Order.email',
+                'Order.phone_number',
+                'Product_order.product_id',
+                'Product_order.quantity'
+            )
+            .from('Order')
+            .leftJoin('Product_order', 'Order.id', 'Product_order.order_id')
+            .orderBy('Order.id');
 
-        res.json(orders[0]);
+        const groupedOrders = orders.reduce((acc, order) => {
+            const existingOrder = acc.find((o) => o.order_id === order.order_id);
+
+            if (existingOrder) {
+                existingOrder.products.push(order.product_id);
+                existingOrder.quantities.push(order.quantity);
+            } else {
+                const newOrder = {
+                    order_id: order.order_id,
+                    confirm_date: order.confirm_date,
+                    order_status_id: order.order_status_id,
+                    username: order.username,
+                    email: order.email,
+                    phone_number: order.phone_number,
+                    products: [order.product_id],
+                    quantities: [order.quantity],
+                };
+                acc.push(newOrder);
+            }
+
+            return acc;
+        }, []);
+
+        res.json(groupedOrders);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Błąd serwera' });
@@ -18,12 +51,13 @@ router.get('/orders', async (req, res) => {
 });
 
 
+
 router.post('/orders', async (req, res) => {
     try {
         const { confirm_date, order_status, username, email, phone_number, products, quantities } = req.body;
 
         // Sprawdzenie, czy wszystkie wymagane pola są dostępne
-        if (!confirm_date  || !order_status || !username || !email || !phone_number || !products || !quantities) {
+        if (!confirm_date || !order_status || !username || !email || !phone_number || !products || !quantities) {
             return res.status(400).json({ error: 'Not all required parameters have been passed' });
         }
 
@@ -95,7 +129,7 @@ router.patch('/orders/:id', async (req, res) => {
             return res.status(404).json({ error: 'Order does not exist' });
         }
 
-      
+
         const currentStatus = await db('Order_status').where('id', order.order_status_id).first();
 
 
@@ -126,9 +160,46 @@ router.get('/orders/status/:id', async (req, res) => {
     try {
         const statusId = req.params.id;
 
-        const orders = await db('Order').where('order_status_id', statusId);
+        const orders = await db
+            .select(
+                'Order.id as order_id',
+                'Order.confirm_date',
+                'Order.order_status_id',
+                'Order.username',
+                'Order.email',
+                'Order.phone_number',
+                'Product_order.product_id',
+                'Product_order.quantity'
+            )
+            .from('Order')
+            .leftJoin('Product_order', 'Order.id', 'Product_order.order_id')
+            .where('Order.order_status_id', statusId)
+            .orderBy('Order.id');
 
-        res.json({ orders });
+        const groupedOrders = orders.reduce((acc, order) => {
+            const existingOrder = acc.find((o) => o.order_id === order.order_id);
+
+            if (existingOrder) {
+                existingOrder.products.push(order.product_id);
+                existingOrder.quantities.push(order.quantity);
+            } else {
+                const newOrder = {
+                    order_id: order.order_id,
+                    confirm_date: order.confirm_date,
+                    order_status_id: order.order_status_id,
+                    username: order.username,
+                    email: order.email,
+                    phone_number: order.phone_number,
+                    products: [order.product_id],
+                    quantities: [order.quantity],
+                };
+                acc.push(newOrder);
+            }
+
+            return acc;
+        }, []);
+
+        res.json(groupedOrders);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });

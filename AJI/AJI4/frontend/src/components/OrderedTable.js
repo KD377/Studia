@@ -13,7 +13,6 @@ const ProductTable = ({ addedProducts, onQuantityChange, onDeleteProduct }) => {
   }, [addedProducts]);
 
   useEffect(() => {
-    // Calculate the sum of all total prices
     const sum = Object.values(totalPrices).reduce((acc, price) => acc + parseFloat(price), 0);
     setTotalSum(sum.toFixed(2));
   }, [totalPrices]);
@@ -70,7 +69,7 @@ const ProductTable = ({ addedProducts, onQuantityChange, onDeleteProduct }) => {
           ))}
         </tbody>
       </table>
-      <div>
+      <div className='text-white'>
         <strong>Total Sum: {totalSum}</strong>
       </div>
     </div>

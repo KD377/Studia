@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../App.css';
-import Filters from '../components/Filters'
+import Filters from "../components/Filters";
 
 const ProductTable = () => {
     const [products, setProducts] = useState([]);
-    const [addedProducts, setAddedProducts] = useState([]);
     const [filterName, setFilterName] = useState('');
     const [filterCategory, setFilterCategory] = useState('All');
     const [categories, setCategories] = useState(['All']);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const { state } = location;
+
 
     useEffect(() => {
         axios.get('http://localhost:4000/products')
             .then((response) => setProducts(response.data))
             .catch((error) => console.error('Error fetching products:', error));
-    }, []);
+    }, [state]);
 
     useEffect(() => {
         axios.get('http://localhost:4000/categories')
@@ -30,27 +32,18 @@ const ProductTable = () => {
             .catch((error) => console.error('Error fetching categories:', error));
     }, []);
 
-    const handleButtonClick = (product) => {
-        const productId = product.id;
-
-        if (addedProducts.some((addedProduct) => addedProduct.id === productId)) {
-            setAddedProducts(addedProducts.filter((addedProduct) => addedProduct.id !== productId));
-        } else {
-            setAddedProducts([...addedProducts, product]);
-        }
-    };
-
-    const handleCheckoutClick = () => {
-        navigate('/checkout', { state: { addedProducts } });
-    };
-
     const filteredProducts = products.filter((product) =>
         (filterName === '' || product.name.toLowerCase().includes(filterName.toLowerCase())) &&
         (filterCategory === 'All' || product.category === filterCategory)
     );
 
+    const handleButtonClick = (product) => {
+        navigate('/edit',{state: {product}});
+    }
+
+
     return (
-        <div>
+        <div className='container'>
             <Filters
                 filterName={filterName}
                 setFilterName={setFilterName}
@@ -59,7 +52,6 @@ const ProductTable = () => {
                 categories={categories}
             />
             <table className="table table-striped table-dark">
-
                 <tbody>
                     {filteredProducts.map((product) => (
                         <tr key={product.id}>
@@ -71,24 +63,16 @@ const ProductTable = () => {
                             <td className='text-center'>
                                 <button
                                     style={{ width: '100px' }}
-                                    className={`btn ${addedProducts.includes(product) ? 'btn-danger' : 'btn-success'}`}
+                                    className={`btn btn-warning`}
                                     onClick={() => handleButtonClick(product)}
                                 >
-                                    {addedProducts.includes(product) ? 'Remove' : 'Add'}
+                                    Edit
                                 </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {addedProducts.length > 0 && (
-                <div className='text-center mt-5'>
-                    <button className="btn btn-dark" style={{ width: '200px', fontSize: '1.5em' }}
-                        onClick={handleCheckoutClick}>
-                        Checkout
-                    </button>
-                </div>
-            )}
         </div>
     );
 };

@@ -42,7 +42,7 @@ const CheckoutPage = () => {
 
     const orderData = {
       confirm_date: '2024-01-01',
-      order_status: 'NOT_APPROVED',
+      order_status: 'APPROVED',
       username: userData.userName,
       email: userData.email,
       phone_number: userData.phoneNumber,
