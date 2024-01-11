@@ -37,4 +37,6 @@
     <string name="search">Search</string>
     <string name="clear_results">Clear results</string>
     <string name="results">Results</string>
+    <string name="car_brand_info">Car Brand</string>
+    <string name="car_model_info">Car Model</string>
 </resources>

@@ -117,4 +117,21 @@ public class SearchResults extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    public void onTileSearchClick(View view) {
+        TextView carBrandTextView = view.findViewById(R.id.carBrand);
+        TextView carModelTextView = view.findViewById(R.id.carModel);
+
+        String carBrand = carBrandTextView.getText().toString();
+        String carModel = carModelTextView.getText().toString();
+
+
+        Intent intent = new Intent(this, AdditionalInfo.class);
+        intent.putExtra("carBrand", carBrand);
+        intent.putExtra("carModel", carModel);
+
+
+        startActivity(intent);
+    }
 }
