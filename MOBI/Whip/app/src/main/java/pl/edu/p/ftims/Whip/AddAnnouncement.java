@@ -1,15 +1,26 @@
 package pl.edu.p.ftims.Whip;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +32,11 @@ public class AddAnnouncement extends AppCompatActivity {
     EditText powerEditText;
     EditText mileageEditText;
     FirebaseAuth firebaseAuth;
+
+    private final int GALLERY_REQ_CODE = 1000;
+
+    ImageView imageGallery;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +51,20 @@ public class AddAnnouncement extends AppCompatActivity {
         priceEditText = findViewById(R.id.edit_text_price);
         Button saveButton = findViewById(R.id.button_save);
 
+        imageGallery = findViewById(R.id.imageView);
+        Button buttonGallery = findViewById(R.id.button_open_gallery);
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        buttonGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery, GALLERY_REQ_CODE);
+            }
+        });
 
         saveButton.setOnClickListener(view -> {
             String carBrand = carBrandEditText.getText().toString().trim();
@@ -46,7 +74,7 @@ public class AddAnnouncement extends AppCompatActivity {
             String mileage = mileageEditText.getText().toString().trim();
             String price = priceEditText.getText().toString().trim();
 
-            if (!carBrand.isEmpty() && !carModel.isEmpty() && !engineSize.isEmpty() && !power.isEmpty() && !mileage.isEmpty() && currentUser != null) {
+            if (!carBrand.isEmpty() && !carModel.isEmpty() && !engineSize.isEmpty() && !power.isEmpty() && !mileage.isEmpty() && currentUser != null && imageGallery != null) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> announcement = new HashMap<>();
                 announcement.put("carBrand", carBrand);
@@ -59,6 +87,7 @@ public class AddAnnouncement extends AppCompatActivity {
                 announcement.put("power", powerValue);
                 announcement.put("mileage", mileageValue);
                 announcement.put("price", priceValue);
+                announcement.put("image", imageGallery);
                 announcement.put("userId", currentUser.getUid());
 
                 db.collection("Announcements")
@@ -75,5 +104,18 @@ public class AddAnnouncement extends AppCompatActivity {
                 Toast.makeText(AddAnnouncement.this, "Fill in all fields!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+            if (requestCode == GALLERY_REQ_CODE){
+
+                imageUri = data.getData();
+                imageGallery.setImageURI(imageUri);
+            }
+        }
     }
 }
