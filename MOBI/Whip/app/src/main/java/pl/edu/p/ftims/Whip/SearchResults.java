@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -83,7 +85,17 @@ public class SearchResults extends AppCompatActivity {
                         TextView engineSizeTextView = tileView.findViewById(R.id.engineSize);
                         TextView mileageTextView = tileView.findViewById(R.id.mileage);
                         TextView powerTextView = tileView.findViewById(R.id.power);
-                        TextView priceTextView = tileView.findViewById(R.id.price);// Add delete button
+                        TextView priceTextView = tileView.findViewById(R.id.price);
+                        ImageView carImageView = tileView.findViewById(R.id.carImageSearch);
+
+                        if (document.contains("image")) {
+                            String imageUrl = document.getString("image");
+
+                            // Load and display the image using Glide
+                            Glide.with(SearchResults.this)
+                                    .load(imageUrl)
+                                    .into(carImageView);
+                        }
 
                         String documentId = document.getId();
 

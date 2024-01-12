@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +69,16 @@ public class MyAnnouncements extends AppCompatActivity {
                                         TextView powerTextView = tileView.findViewById(R.id.power);
                                         TextView priceTextView = tileView.findViewById(R.id.price);
                                         Button deleteButton = tileView.findViewById(R.id.delete_button);
+                                        ImageView carImageView = tileView.findViewById(R.id.carImageShow);
+
+                                        if (document.contains("image")) {
+                                            String imageUrl = document.getString("image");
+
+                                            // Load and display the image using Glide
+                                            Glide.with(MyAnnouncements.this)
+                                                    .load(imageUrl)
+                                                    .into(carImageView);
+                                        }
 
                                         String documentId = document.getId();
 
@@ -140,7 +152,16 @@ public class MyAnnouncements extends AppCompatActivity {
                                 TextView powerTextView = tileView.findViewById(R.id.power);
                                 TextView priceTextView = tileView.findViewById(R.id.price);
                                 Button deleteButton = tileView.findViewById(R.id.delete_button); // Add delete button
+                                ImageView carImageView = tileView.findViewById(R.id.carImageShow);
 
+                                if (document.contains("image")) {
+                                    String imageUrl = document.getString("image");
+
+                                    // Load and display the image using Glide
+                                    Glide.with(MyAnnouncements.this)
+                                            .load(imageUrl)
+                                            .into(carImageView);
+                                }
                                 String documentId = document.getId();
 
 
