@@ -69,6 +69,7 @@ public class MyAnnouncements extends AppCompatActivity {
                                         TextView powerTextView = tileView.findViewById(R.id.power);
                                         TextView priceTextView = tileView.findViewById(R.id.price);
                                         Button deleteButton = tileView.findViewById(R.id.delete_button);
+                                        Button editButton = tileView.findViewById(R.id.edit_button);
                                         ImageView carImageView = tileView.findViewById(R.id.carImageShow);
 
                                         if (document.contains("image")) {
@@ -100,7 +101,6 @@ public class MyAnnouncements extends AppCompatActivity {
                                         deleteButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                // Delete document from Firestore
                                                 db.collection("Announcements").document(documentId)
                                                         .delete()
                                                         .addOnSuccessListener(aVoid -> {
@@ -112,6 +112,15 @@ public class MyAnnouncements extends AppCompatActivity {
 
                                                             Log.e("Firestore", "Error deleting document: " + e.getMessage());
                                                         });
+                                            }
+                                        });
+
+                                        editButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(MyAnnouncements.this, EditAnnouncement.class);
+                                                intent.putExtra("announcementId", documentId);
+                                                AnnouncementLauncher.launch(intent);
                                             }
                                         });
 
@@ -127,13 +136,11 @@ public class MyAnnouncements extends AppCompatActivity {
         }
     }
 
-    // Method to reload announcements and update UI
+
     private void reloadAnnouncements() {
-        // Clear the current UI
         LinearLayout mainLayout = findViewById(R.id.tilesContainer);
         mainLayout.removeAllViews();
 
-        // Query Firestore to get updated announcements for the current user
         db.collection("Announcements")
                 .whereEqualTo("userId", auth.getCurrentUser().getUid())
                 .get()
@@ -151,13 +158,13 @@ public class MyAnnouncements extends AppCompatActivity {
                                 TextView mileageTextView = tileView.findViewById(R.id.mileage);
                                 TextView powerTextView = tileView.findViewById(R.id.power);
                                 TextView priceTextView = tileView.findViewById(R.id.price);
-                                Button deleteButton = tileView.findViewById(R.id.delete_button); // Add delete button
+                                Button deleteButton = tileView.findViewById(R.id.delete_button);
+                                Button editButton = tileView.findViewById(R.id.edit_button);
                                 ImageView carImageView = tileView.findViewById(R.id.carImageShow);
 
                                 if (document.contains("image")) {
                                     String imageUrl = document.getString("image");
 
-                                    // Load and display the image using Glide
                                     Glide.with(MyAnnouncements.this)
                                             .load(imageUrl)
                                             .into(carImageView);
@@ -193,10 +200,20 @@ public class MyAnnouncements extends AppCompatActivity {
                                                 })
                                                 .addOnFailureListener(e -> {
 
-                                                    Log.e("Firestore", "Error deleting document: " + e.getMessage());
+                                                    Toast.makeText(MyAnnouncements.this, "Error deleting document", Toast.LENGTH_SHORT).show();
                                                 });
                                     }
                                 });
+
+                                editButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(MyAnnouncements.this, EditAnnouncement.class);
+                                        intent.putExtra("announcementId", documentId);
+                                        AnnouncementLauncher.launch(intent);
+                                    }
+                                });
+
 
                                 mainLayout.addView(tileView);
 
@@ -208,16 +225,17 @@ public class MyAnnouncements extends AppCompatActivity {
                 });
     }
 
-    private ActivityResultLauncher<Intent> addAnnouncementLauncher = registerForActivityResult(
+    private ActivityResultLauncher<Intent> AnnouncementLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
-                    reloadAnnouncements(); // Refresh the announcements
+                    reloadAnnouncements();
                 }
             }
     );
+
     public void addAnnouncement(View view) {
-        Intent intent = new Intent(this, AddAnnouncement.class); // AddAdActivity to nazwa kolejnej aktywności
-        addAnnouncementLauncher.launch(intent);
+        Intent intent = new Intent(this, AddAnnouncement.class);
+        AnnouncementLauncher.launch(intent);
     }
 }

@@ -10,7 +10,6 @@
     <string name="click_to_register">Click to register</string>
     <string name="hello">hello</string>
     <string name="logout">Logout</string>
-    <string name="dodaj_ogloszenie">Dodaj ogłoszenie</string>
     <string name="car_brand">Car_brand</string>
     <string name="car_model">car_model</string>
     <string name="save">Save</string>
@@ -19,7 +18,6 @@
     <string name="engine_size">Engine size</string>
     <string name="power">Power</string>
     <string name="mileage">Mileage</string>
-    <string name="moje_ogloszenia">Moje ogloszenia</string>
     <string name="my_announcements">My announcements</string>
     <string name="delete">Delete</string>
     <string name="price">Price</string>
@@ -44,4 +42,5 @@
     <string name="car_mileage_info">Mileage</string>
     <string name="car_power_info">Engine power</string>
     <string name="car_engine_size_info">Engine size</string>
+    <string name="edit">Edit</string>
 </resources>

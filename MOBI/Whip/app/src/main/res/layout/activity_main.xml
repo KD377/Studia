@@ -174,7 +174,7 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:onClick="goToMyAnnouncments"
-            android:text="@string/moje_ogloszenia" />
+            android:text="@string/my_announcements" />
 
 
         <Button
@@ -185,6 +185,6 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:onClick="goToAddAnnouncement"
-            android:text="@string/dodaj_ogloszenie" />
+            android:text="@string/add_announcement" />
     </LinearLayout>
 </RelativeLayout>

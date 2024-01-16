@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edit_carBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Car Brand"/>
+
+    <EditText
+        android:id="@+id/edit_carModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_carBrand"
+        android:layout_marginTop="8dp"
+        android:hint="Car Model"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edit_engineSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_carModel"
+        android:layout_marginTop="8dp"
+        android:hint="Car engine size"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edit_carPower"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_engineSize"
+        android:layout_marginTop="8dp"
+        android:hint="Car power"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edit_carMileage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_carPower"
+        android:layout_marginTop="8dp"
+        android:hint="Car mileage"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edit_carPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_carMileage"
+        android:layout_marginTop="8dp"
+        android:hint="Car price"
+        android:minHeight="48dp" />
+
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="130dp"
+        android:layout_height="61dp"
+        android:layout_below="@id/edit_carModel"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="417dp"
+        android:layout_marginEnd="139dp"
+        android:text="Save" />
+
+</RelativeLayout>
