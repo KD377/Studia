@@ -3,18 +3,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:id="@+id/carImageView"
+        android:layout_width="match_parent"
+        android:layout_height="263dp"
+        android:src="@drawable/placeholder_image" />
+
     <TextView
         android:id="@+id/carBrandTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="361dp"
+        android:layout_height="46dp"
         android:text="@string/car_brand_info" />
 
     <TextView
         android:id="@+id/carModelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="361dp"
+        android:layout_height="48dp"
         android:text="@string/car_model_info" />
 
+    <TextView
+        android:id="@+id/carPriceTextView"
+        android:layout_width="361dp"
+        android:layout_height="41dp"
+        android:text="@string/car_price_info" />
+
+    <TextView
+        android:id="@+id/carMileageTextView"
+        android:layout_width="361dp"
+        android:layout_height="47dp"
+        android:text="@string/car_mileage_info" />
+
+    <TextView
+        android:id="@+id/carPowerTextView"
+        android:layout_width="361dp"
+        android:layout_height="51dp"
+        android:text="@string/car_power_info" />
+
+    <TextView
+        android:id="@+id/carEngineSizeTextView"
+        android:layout_width="361dp"
+        android:layout_height="51dp"
+        android:text="@string/car_engine_size_info" />
 
 
 </LinearLayout>

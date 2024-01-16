@@ -40,4 +40,8 @@
     <string name="car_brand_info">Car Brand</string>
     <string name="car_model_info">Car Model</string>
     <string name="open_gallery">Open gallery</string>
+    <string name="car_price_info">Price</string>
+    <string name="car_mileage_info">Mileage</string>
+    <string name="car_power_info">Engine power</string>
+    <string name="car_engine_size_info">Engine size</string>
 </resources>

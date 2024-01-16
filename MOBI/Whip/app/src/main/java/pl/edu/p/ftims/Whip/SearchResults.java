@@ -88,6 +88,7 @@ public class SearchResults extends AppCompatActivity {
                         TextView priceTextView = tileView.findViewById(R.id.price);
                         ImageView carImageView = tileView.findViewById(R.id.carImageSearch);
 
+
                         if (document.contains("image")) {
                             String imageUrl = document.getString("image");
 
@@ -95,8 +96,10 @@ public class SearchResults extends AppCompatActivity {
                             Glide.with(SearchResults.this)
                                     .load(imageUrl)
                                     .into(carImageView);
+                            carImageView.setTag(imageUrl);
                         }
 
+                        carImageView.setTag(document.getString("image"));
                         String documentId = document.getId();
 
 
@@ -134,14 +137,30 @@ public class SearchResults extends AppCompatActivity {
     public void onTileSearchClick(View view) {
         TextView carBrandTextView = view.findViewById(R.id.carBrand);
         TextView carModelTextView = view.findViewById(R.id.carModel);
+        TextView engineSizeTextView = view.findViewById(R.id.engineSize);
+        TextView mileageTextView = view.findViewById(R.id.mileage);
+        TextView powerTextView = view.findViewById(R.id.power);
+        TextView priceTextView = view.findViewById(R.id.price);
+        ImageView carImageSearchView = view.findViewById(R.id.carImageSearch);
 
         String carBrand = carBrandTextView.getText().toString();
         String carModel = carModelTextView.getText().toString();
+        String engineSize = engineSizeTextView.getText().toString();
+        String mileage = mileageTextView.getText().toString();
+        String power = powerTextView.getText().toString();
+        String price = priceTextView.getText().toString();
+
+        String carImageURL = carImageSearchView.getTag().toString();
 
 
         Intent intent = new Intent(this, AdditionalInfo.class);
         intent.putExtra("carBrand", carBrand);
         intent.putExtra("carModel", carModel);
+        intent.putExtra("engineSize", engineSize);
+        intent.putExtra("mileage", mileage);
+        intent.putExtra("power", power);
+        intent.putExtra("price", price);
+        intent.putExtra("carImageURL", carImageURL);
 
 
         startActivity(intent);

@@ -94,7 +94,6 @@ public class AddAnnouncement extends AppCompatActivity {
             String price = priceEditText.getText().toString().trim();
 
             if (!carBrand.isEmpty() && !carModel.isEmpty() && !engineSize.isEmpty() && !power.isEmpty() && !mileage.isEmpty() && currentUser != null && imageGallery != null && imageUri != null) {
-//                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> announcement = new HashMap<>();
                 announcement.put("carBrand", carBrand);
                 announcement.put("carModel", carModel);
