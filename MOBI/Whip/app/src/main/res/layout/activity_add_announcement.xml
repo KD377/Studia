@@ -66,24 +66,37 @@
         android:minHeight="48dp"
         android:textAlignment="center" />
 
+    <EditText
+        android:id="@+id/edit_text_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_price"
+        android:layout_marginTop="9dp"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:maxLength="9"
+        android:textAlignment="center" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="252dp"
         android:layout_height="166dp"
-        android:layout_below="@+id/edit_text_price"
+        android:layout_below="@+id/edit_text_phone_number"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="79dp" />
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="80dp" />
 
     <Button
         android:id="@+id/button_open_gallery"
         android:layout_width="139dp"
         android:layout_height="58dp"
         android:layout_below="@+id/imageView"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="136dp"
         android:gravity="center"
-        android:text="@string/open_gallery"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/open_gallery" />
 
     <Button
         android:id="@+id/button_save"
@@ -92,12 +105,12 @@
         android:layout_below="@+id/button_open_gallery"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="145dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="147dp"
         android:text="@string/save"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

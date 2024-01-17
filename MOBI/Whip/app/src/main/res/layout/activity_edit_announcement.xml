@@ -56,16 +56,36 @@
         android:minHeight="48dp" />
 
 
+    <ImageView
+        android:id="@+id/edit_imageView"
+        android:layout_width="252dp"
+        android:layout_height="166dp"
+        android:layout_below="@id/edit_carPrice"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="78dp" />
+
+    <Button
+        android:id="@+id/upload_button"
+        android:layout_width="139dp"
+        android:layout_height="58dp"
+        android:layout_below="@id/edit_imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="137dp"
+        android:gravity="center"
+        android:text="@string/open_gallery" />
+
     <Button
         android:id="@+id/save_button"
-        android:layout_width="130dp"
-        android:layout_height="61dp"
-        android:layout_below="@id/edit_carModel"
+        android:layout_width="141dp"
+        android:layout_height="59dp"
+        android:layout_below="@id/upload_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="141dp"
-        android:layout_marginTop="417dp"
-        android:layout_marginEnd="139dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="136dp"
         android:text="Save" />
 
 </RelativeLayout>

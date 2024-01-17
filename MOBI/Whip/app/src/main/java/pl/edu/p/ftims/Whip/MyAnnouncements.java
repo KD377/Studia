@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 // ... (existing imports)
 
@@ -71,9 +73,10 @@ public class MyAnnouncements extends AppCompatActivity {
                                         Button deleteButton = tileView.findViewById(R.id.delete_button);
                                         Button editButton = tileView.findViewById(R.id.edit_button);
                                         ImageView carImageView = tileView.findViewById(R.id.carImageShow);
+                                        String imageUrl = document.getString("image");
 
                                         if (document.contains("image")) {
-                                            String imageUrl = document.getString("image");
+
 
                                             // Load and display the image using Glide
                                             Glide.with(MyAnnouncements.this)
@@ -105,7 +108,7 @@ public class MyAnnouncements extends AppCompatActivity {
                                                         .delete()
                                                         .addOnSuccessListener(aVoid -> {
                                                             Toast.makeText(MyAnnouncements.this, "Announcement deleted", Toast.LENGTH_SHORT).show();
-
+                                                            deleteImageFromStorage(imageUrl);
                                                             reloadAnnouncements();
                                                         })
                                                         .addOnFailureListener(e -> {
@@ -238,4 +241,17 @@ public class MyAnnouncements extends AppCompatActivity {
         Intent intent = new Intent(this, AddAnnouncement.class);
         AnnouncementLauncher.launch(intent);
     }
+
+    private void deleteImageFromStorage(String imageUrl){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+
+        storageRef.delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "Image deleted from Storage");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error deleting image from Storage: " + e.getMessage());
+                });
+    }
+
 }

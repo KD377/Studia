@@ -39,6 +39,7 @@ public class AddAnnouncement extends AppCompatActivity {
     EditText engineSizeEditText;
     EditText powerEditText;
     EditText mileageEditText;
+    EditText phoneNumberEditText;
     FirebaseAuth firebaseAuth;
 
     private final int GALLERY_REQ_CODE = 1000;
@@ -64,6 +65,7 @@ public class AddAnnouncement extends AppCompatActivity {
         powerEditText = findViewById(R.id.edit_text_power);
         mileageEditText = findViewById(R.id.edit_text_mileage);
         priceEditText = findViewById(R.id.edit_text_price);
+        phoneNumberEditText = findViewById(R.id.edit_text_phone_number);
         Button saveButton = findViewById(R.id.button_save);
 
         imageGallery = findViewById(R.id.imageView);
@@ -92,6 +94,12 @@ public class AddAnnouncement extends AppCompatActivity {
             String power = powerEditText.getText().toString().trim();
             String mileage = mileageEditText.getText().toString().trim();
             String price = priceEditText.getText().toString().trim();
+            String phoneNumber = phoneNumberEditText.getText().toString().trim();
+
+            if (!isValidPhoneNumber(phoneNumber)) {
+                Toast.makeText(AddAnnouncement.this, "Invalid phone number. It must have exactly 9 digits.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (!carBrand.isEmpty() && !carModel.isEmpty() && !engineSize.isEmpty() && !power.isEmpty() && !mileage.isEmpty() && currentUser != null && imageGallery != null && imageUri != null) {
                 Map<String, Object> announcement = new HashMap<>();
@@ -107,6 +115,7 @@ public class AddAnnouncement extends AppCompatActivity {
                 announcement.put("price", priceValue);
                 announcement.put("image", imageUri);
                 announcement.put("userId", currentUser.getUid());
+                announcement.put("phoneNumber", phoneNumber);
 
                 db.collection("Announcements")
                         .add(announcement)
@@ -125,6 +134,10 @@ public class AddAnnouncement extends AppCompatActivity {
                 Toast.makeText(AddAnnouncement.this, "Fill in all fields!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.matches("\\d{9}");
     }
 
 
