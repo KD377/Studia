@@ -59,7 +59,16 @@ const ProductTable = () => {
                 categories={categories}
             />
             <table className="table table-striped table-dark">
-
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Weight</th>
+                        <th>Category</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
                     {filteredProducts.map((product) => (
                         <tr key={product.id}>

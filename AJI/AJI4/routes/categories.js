@@ -1,3 +1,6 @@
+// categories.js
+const { StatusCodes, getReasonPhrase } = require('http-status-codes');
+
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
@@ -6,10 +9,11 @@ const db = require('../database');
 router.get('/categories', async (req, res) => {
   try {
     const categories = await db.select().from('Category');
-    res.json(categories);
+    res.status(StatusCodes.OK).send(categories);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)
+    });
   }
 });
 

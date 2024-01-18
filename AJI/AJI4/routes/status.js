@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
+const { StatusCodes } = require('http-status-codes');
 
 
 router.get('/status', async (req, res) => {
   try {
     const status = await db.select().from('Order_status');
-    res.json(status);
+    res.status(StatusCodes.OK).send(status);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ error: 'Server error' });
   }
 });
 

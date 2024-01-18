@@ -21,10 +21,15 @@ const ProductTable = () => {
     }, [update]);
 
     const handleCancel = (orderId) => {
-        axios.patch(`http://localhost:4000/orders/${orderId}`, {order_status_id:3})
+        const patchOperations = [
+            { op: 'replace', path: '/order_status_id', value: 3 }
+        ];
+
+        axios.patch(`http://localhost:4000/orders/${orderId}`, patchOperations)
             .then((response) => {
                 setUpdate(!update);
-                alert(`Order ${orderId} has been cancelled`);
+                alert(`Order ${orderId} has been marked as cancelled`);
+                console.log(response);
             })
             .catch((error) => {
                 alert(error.response.data.error);
@@ -33,16 +38,21 @@ const ProductTable = () => {
     };
 
     const handleComplete = (orderId) => {
-        axios.patch(`http://localhost:4000/orders/${orderId}`, {order_status_id:4})
-        .then((response) => {
-            setUpdate(!update);
-            alert(`Order ${orderId} has been marked as completed`);
-            console.log(response);
-        })
-        .catch((error) => {
-            alert(error.response.data.error);
-        });
+        const patchOperations = [
+            { op: 'replace', path: '/order_status_id', value: 4 }
+        ];
+
+        axios.patch(`http://localhost:4000/orders/${orderId}`, patchOperations)
+            .then((response) => {
+                setUpdate(!update);
+                alert(`Order ${orderId} has been marked as completed`);
+                console.log(response);
+            })
+            .catch((error) => {
+                alert(error.response.data.error);
+            });
     };
+
 
     const date = (confirm_date) => {
         const date = new Date(confirm_date);
