@@ -3,7 +3,9 @@ package pl.edu.p.ftims.Whip;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -24,6 +26,7 @@ public class AdditionalInfo extends AppCompatActivity {
         String carPower = intent.getStringExtra("power");
         String engineSize = intent.getStringExtra("engineSize");
         String carImageURL = intent.getStringExtra("carImageURL");
+        String phoneNumber = intent.getStringExtra("phoneNumber");
 
         TextView carBrandTextView = findViewById(R.id.carBrandTextView);
         TextView carModelTextView = findViewById(R.id.carModelTextView);
@@ -31,6 +34,7 @@ public class AdditionalInfo extends AppCompatActivity {
         TextView carMileageTextView = findViewById(R.id.carMileageTextView);
         TextView carPowerTextView = findViewById(R.id.carPowerTextView);
         TextView carEngineSizeTextView = findViewById(R.id.carEngineSizeTextView);
+        TextView  phoneNumberTextView = findViewById(R.id. phoneNumberTextView);
 
         ImageView carImageView = findViewById(R.id.carImageView);
 
@@ -41,9 +45,19 @@ public class AdditionalInfo extends AppCompatActivity {
         carPowerTextView.setText("Power: " + carPower);
         carEngineSizeTextView.setText("Engine size: " + engineSize);
 
+        phoneNumberTextView.setText("Phone: " + phoneNumber + " (click to call)");
+        Linkify.addLinks(phoneNumberTextView, Linkify.PHONE_NUMBERS);
+
         Glide.with(AdditionalInfo.this)
                 .load(carImageURL)
                 .into(carImageView);
+
+
+        phoneNumberTextView.setOnClickListener(view -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(dialIntent);
+        });
 
     }
 }

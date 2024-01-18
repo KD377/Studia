@@ -87,6 +87,7 @@ public class SearchResults extends AppCompatActivity {
                         TextView powerTextView = tileView.findViewById(R.id.power);
                         TextView priceTextView = tileView.findViewById(R.id.price);
                         ImageView carImageView = tileView.findViewById(R.id.carImageSearch);
+                        TextView phoneNumberTextView = tileView.findViewById(R.id.phoneNumber);
 
 
                         if (document.contains("image")) {
@@ -109,6 +110,7 @@ public class SearchResults extends AppCompatActivity {
                         Long mileage = document.getLong("mileage");
                         Double power = document.getDouble("power");
                         Double price = document.getDouble("price");
+                        String phoneNumber = document.getString("phoneNumber");
 
                         carBrandTextView.setText(carBrand);
                         carModelTextView.setText(carModel);
@@ -116,7 +118,7 @@ public class SearchResults extends AppCompatActivity {
                         mileageTextView.setText(mileage + "km");
                         powerTextView.setText(power + "km");
                         priceTextView.setText(price + "pln");
-
+                        phoneNumberTextView.setText(phoneNumber);
 
                         mainLayout.addView(tileView);
                     }
@@ -142,6 +144,7 @@ public class SearchResults extends AppCompatActivity {
         TextView powerTextView = view.findViewById(R.id.power);
         TextView priceTextView = view.findViewById(R.id.price);
         ImageView carImageSearchView = view.findViewById(R.id.carImageSearch);
+        TextView phoneNumberTextView = view.findViewById(R.id.phoneNumber);
 
         String carBrand = carBrandTextView.getText().toString();
         String carModel = carModelTextView.getText().toString();
@@ -149,6 +152,7 @@ public class SearchResults extends AppCompatActivity {
         String mileage = mileageTextView.getText().toString();
         String power = powerTextView.getText().toString();
         String price = priceTextView.getText().toString();
+        String phoneNumber = phoneNumberTextView.getText().toString();
 
         String carImageURL = carImageSearchView.getTag().toString();
 
@@ -160,6 +164,7 @@ public class SearchResults extends AppCompatActivity {
         intent.putExtra("mileage", mileage);
         intent.putExtra("power", power);
         intent.putExtra("price", price);
+        intent.putExtra("phoneNumber", phoneNumber);
         intent.putExtra("carImageURL", carImageURL);
 
 
