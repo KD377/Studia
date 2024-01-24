@@ -154,10 +154,8 @@ public class AddAnnouncement extends AppCompatActivity {
             UploadTask uploadTask = imageRef.putBytes(data);
 
             uploadTask.addOnSuccessListener(taskSnapshot -> {
-                // Get the download URL and save it in Firestore
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    // Update the "image" field in Firestore with the download URL
-                    String imageUrl = uri.toString(); // Convert the Uri to String
+                    String imageUrl = uri.toString();
                     db.collection("Announcements").document(documentId)
                             .update("image", imageUrl)
                             .addOnSuccessListener(aVoid -> {
@@ -178,12 +176,10 @@ public class AddAnnouncement extends AppCompatActivity {
                     Toast.makeText(AddAnnouncement.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnCompleteListener(task -> {
-                // Dismiss the dialog when the task is complete if it is still showing
             });
         } catch (IOException e) {
             e.printStackTrace();
 
-            // Handle any exception that occurred during image processing
             if (!isFinishing()) {
                 Toast.makeText(AddAnnouncement.this, "Error processing image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }

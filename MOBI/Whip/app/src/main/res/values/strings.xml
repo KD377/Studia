@@ -44,4 +44,5 @@
     <string name="car_engine_size_info">Engine size</string>
     <string name="edit">Edit</string>
     <string name="phone_number">Phone Number</string>
+    <string name="car_brand2">Car brand</string>
 </resources>

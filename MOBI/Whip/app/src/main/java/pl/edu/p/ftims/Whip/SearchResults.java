@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,21 +56,29 @@ public class SearchResults extends AppCompatActivity {
         if (!model.isEmpty()) {
             query = query.whereEqualTo("carModel", model);
         }
-        if (!minMileage.isEmpty() && !maxMileage.isEmpty()) {
-            query = query.whereGreaterThanOrEqualTo("mileage", Integer.parseInt(minMileage))
-                    .whereLessThanOrEqualTo("mileage", Integer.parseInt(maxMileage));
+        if (!minMileage.isEmpty()) {
+            query = query.whereGreaterThanOrEqualTo("mileage", Integer.parseInt(minMileage));
         }
-        if (!minPrice.isEmpty() && !maxPrice.isEmpty()) {
-            query = query.whereGreaterThanOrEqualTo("price", Double.parseDouble(minPrice))
-                    .whereLessThanOrEqualTo("price", Double.parseDouble(maxPrice));
+        if (!maxMileage.isEmpty()){
+            query = query.whereLessThanOrEqualTo("mileage", Integer.parseInt(maxMileage));
+        }
+        if (!minPrice.isEmpty()) {
+            query = query.whereGreaterThanOrEqualTo("price", Double.parseDouble(minPrice));
+        }
+        if (!maxPrice.isEmpty()){
+            query = query.whereLessThanOrEqualTo("price", Double.parseDouble(maxPrice));
         }
         if (!minEngine.isEmpty() && !maxEngine.isEmpty()) {
-            query = query.whereGreaterThanOrEqualTo("engineSize", Double.parseDouble(minEngine))
-                    .whereLessThanOrEqualTo("engineSize", Double.parseDouble(maxEngine));
+            query = query.whereGreaterThanOrEqualTo("engineSize", Double.parseDouble(minEngine));
+        }
+        if (!maxEngine.isEmpty()){
+            query = query.whereLessThanOrEqualTo("engineSize", Double.parseDouble(maxEngine));
         }
         if (!minPower.isEmpty() && !maxPower.isEmpty()) {
-            query = query.whereGreaterThanOrEqualTo("power", Double.parseDouble(minPower))
-                    .whereLessThanOrEqualTo("power", Double.parseDouble(maxPower));
+            query = query.whereGreaterThanOrEqualTo("power", Double.parseDouble(minPower));
+        }
+        if (!maxPower.isEmpty()){
+            query = query.whereLessThanOrEqualTo("power", Double.parseDouble(maxPower));
         }
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -93,7 +104,7 @@ public class SearchResults extends AppCompatActivity {
                         if (document.contains("image")) {
                             String imageUrl = document.getString("image");
 
-                            // Load and display the image using Glide
+
                             Glide.with(SearchResults.this)
                                     .load(imageUrl)
                                     .into(carImageView);
@@ -116,8 +127,8 @@ public class SearchResults extends AppCompatActivity {
                         carModelTextView.setText(carModel);
                         engineSizeTextView.setText(engineSize + "ccm");
                         mileageTextView.setText(mileage + "km");
-                        powerTextView.setText(power + "km");
-                        priceTextView.setText(price + "pln");
+                        powerTextView.setText(power + "HP");
+                        priceTextView.setText(price + "PLN");
                         phoneNumberTextView.setText(phoneNumber);
 
                         mainLayout.addView(tileView);
@@ -170,4 +181,5 @@ public class SearchResults extends AppCompatActivity {
 
         startActivity(intent);
     }
+
 }

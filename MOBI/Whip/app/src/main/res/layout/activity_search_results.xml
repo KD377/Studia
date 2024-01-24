@@ -13,7 +13,6 @@
         android:gravity="center"
         android:text="@string/results"
         android:textSize="22sp" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,33 +28,32 @@
         android:layout_marginEnd="16dp"
         android:text="@string/logout" />
 
-    <EditText
-        android:id="@+id/brand_input"
-        android:layout_width="374dp"
+    <Spinner
+        android:id="@+id/car_brand_spinner"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_details"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="21dp"
-        android:hint="@string/brand"
         android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/model_input"
+    <Spinner
+        android:id="@+id/car_model_spinner"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/brand_input"
+        android:layout_below="@id/car_brand_spinner"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="17dp"
-        android:hint="@string/model"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="21dp"
         android:minHeight="48dp" />
+
 
     <EditText
         android:id="@+id/min_engine_size"
         android:layout_width="183dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/model_input"
+        android:layout_below="@id/car_model_spinner"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="215dp"

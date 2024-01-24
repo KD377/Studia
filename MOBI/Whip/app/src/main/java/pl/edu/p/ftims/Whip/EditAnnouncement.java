@@ -214,12 +214,12 @@ public class EditAnnouncement extends AppCompatActivity {
                     Toast.makeText(EditAnnouncement.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnCompleteListener(task -> {
-                // Dismiss the dialog when the task is complete if it is still showing
+                Toast.makeText(EditAnnouncement.this, "Success!!!", Toast.LENGTH_SHORT).show();
             });
         } catch (IOException e) {
             e.printStackTrace();
 
-            // Handle any exception that occurred during image processing
+
             if (!isFinishing()) {
                 Toast.makeText(EditAnnouncement.this, "Error processing image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }

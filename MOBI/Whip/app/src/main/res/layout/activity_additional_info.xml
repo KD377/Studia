@@ -13,38 +13,44 @@
     <TextView
         android:id="@+id/carBrandTextView"
         android:layout_width="361dp"
-        android:layout_height="46dp"
-        android:text="@string/car_brand_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_brand_info"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/carModelTextView"
         android:layout_width="361dp"
-        android:layout_height="48dp"
-        android:text="@string/car_model_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_model_info"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/carPriceTextView"
         android:layout_width="361dp"
-        android:layout_height="41dp"
-        android:text="@string/car_price_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_price_info"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/carMileageTextView"
         android:layout_width="361dp"
-        android:layout_height="47dp"
-        android:text="@string/car_mileage_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_mileage_info"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/carPowerTextView"
         android:layout_width="361dp"
-        android:layout_height="51dp"
-        android:text="@string/car_power_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_power_info"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/carEngineSizeTextView"
         android:layout_width="361dp"
-        android:layout_height="51dp"
-        android:text="@string/car_engine_size_info" />
+        android:layout_height="40dp"
+        android:text="@string/car_engine_size_info"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/phoneNumberTextView"
@@ -53,7 +59,7 @@
         android:layout_marginTop="8dp"
         android:autoLink="phone"
         android:text=""
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="#000000"
         android:textStyle="bold" />
 

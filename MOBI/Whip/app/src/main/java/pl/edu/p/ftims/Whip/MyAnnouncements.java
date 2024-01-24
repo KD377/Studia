@@ -28,7 +28,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-// ... (existing imports)
 
 public class MyAnnouncements extends AppCompatActivity {
 
@@ -76,9 +75,6 @@ public class MyAnnouncements extends AppCompatActivity {
                                         String imageUrl = document.getString("image");
 
                                         if (document.contains("image")) {
-
-
-                                            // Load and display the image using Glide
                                             Glide.with(MyAnnouncements.this)
                                                     .load(imageUrl)
                                                     .into(carImageView);
@@ -186,14 +182,13 @@ public class MyAnnouncements extends AppCompatActivity {
                                 carModelTextView.setText(carModel);
                                 engineSizeTextView.setText(engineSize + "ccm");
                                 mileageTextView.setText(mileage + "km");
-                                powerTextView.setText(power + "km");
-                                priceTextView.setText(price + "pln");
+                                powerTextView.setText(power + "HP");
+                                priceTextView.setText(price + "PLN");
 
 
                                 deleteButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        // Delete document from Firestore
                                         db.collection("Announcements").document(documentId)
                                                 .delete()
                                                 .addOnSuccessListener(aVoid -> {
